@@ -21,16 +21,16 @@
             text-align: center;
             margin-bottom: 20px;
         }
-            /* Style pour les logos */
-            #main-title .logos {
-                display: flex;
-                justify-content: center;
-                gap: 10px; /* Espace entre les logos */
-                margin-bottom: 10px;
-            }
-            #main-title img {
-                height: 100px; /* Agrandir les logos */
-            }
+        /* Style pour les logos */
+        #main-title .logos {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        #main-title img {
+            height: 100px;
+        }
         /* Style pour le bouton ReadMe */
         #readme-button {
             background-color: #748CAB;
@@ -43,10 +43,9 @@
             transition: background-color 0.3s ease;
             margin-top: 10px;
         }
-            #readme-button:hover {
-                background-color: #2874A6;
-            }
-
+        #readme-button:hover {
+            background-color: #2874A6;
+        }
         /* Style de la table principale */
         table {
             width: 100%;
@@ -59,7 +58,6 @@
         table, th, td {
             border: 1px solid #ddd;
         }
-
         th, td {
             padding: 12px;
             text-align: center;
@@ -111,29 +109,24 @@
             transition: opacity 0.3s;
             font-size: 12px;
         }
-
         /* Apparition de l'infobulle au survol */
         .acClick:hover .tooltip {
             visibility: visible;
             opacity: 1;
         }
-
         /* Style pour l'état Marche */
         .marched-oui {
             color: #28a745; /* Vert pour "Oui" */
             font-weight: bold;
         }
-
         .marched-non {
             color: #dc3545; /* Rouge pour "Non" */
             font-weight: bold;
         }
-
         /* Ajoutez cette règle CSS dans votre section <style> */
         .has-value {
             background-color: #f49cbb; /* Couleur dorée pour indiquer une valeur */
         }
-
         /* Style pour la modale */
         .modal {
             display: none;
@@ -147,7 +140,6 @@
             background-color: rgba(0, 0, 0, 0.5);
             padding-top: 60px;
         }
-
         .modal-content {
             background-color: #fff;
             margin: 5% auto;
@@ -158,21 +150,18 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
             border-radius: 10px;
         }
-
         .close-button {
             color: #aaa;
             float: right;
             font-size: 28px;
             font-weight: bold;
         }
-
             .close-button:hover,
             .close-button:focus {
                 color: black;
                 text-decoration: none;
                 cursor: pointer;
             }
-
         /* Style pour la popup ReadMe */
         #readme-popup {
             display: none;
@@ -190,13 +179,11 @@
             max-height: 80%;
             overflow-y: auto;
         }
-
             #readme-popup .close-button {
                 position: absolute;
                 top: 10px;
                 right: 10px;
             }
-
             #readme-popup h2 {
                 margin-top: 0;
             }
@@ -212,12 +199,115 @@
             z-index: 1; /* Sous la popup ReadMe */
         }
 
+        .combination-selector {
+            margin: 20px 0;
+        }
+
+            .combination-selector select {
+                margin-right: 10px;
+            }
+
+        /* Style pour les boutons */
+        .result-button {
+            background-color: #588157;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+            .result-button:hover {
+                background-color: #588157;
+                transform: scale(1.05);
+            }
+
+        /* Style pour les listes déroulantes */
+        .combination-selector select {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-right: 10px;
+            width: 200px;
+        }
+
+        /* Style pour le tableau de résultats */
+        #result table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        #result th, #result td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        #result th {
+            background-color: #588157;
+            color: white;
+        }
+
+        #result tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        #result tr:hover {
+            background-color: #ddd;
+        }
+
+        /* Style pour la section des statistiques */
+        #statistics {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            font-family: 'Arial', sans-serif;
+        }
+
+            #statistics h3 {
+                margin-top: 0;
+                color: black;
+                font-size: 24px;
+                border-bottom: 2px solid #588157;
+                padding-bottom: 10px;
+            }
+
+            #statistics p {
+                margin: 10px 0;
+                font-size: 18px;
+                color: #555;
+            }
+
+            #statistics span {
+                font-weight: bold;
+                color: #588157;
+            }
+
+            /* Style pour les icônes (facultatif) */
+            #statistics .icon {
+                margin-right: 10px;
+                font-size: 24px;
+                color: #588157;
+            }
+
+
     </style>
 </head>
+
+
+
+
+
+
 <body>
     <div id="blur-overlay"></div>
-
-
     <!-- Titre principal avec logos -->
     <div id="main-title">
         <div class="logos">
@@ -228,7 +318,6 @@
         <!-- Bouton ReadMe -->
         <button id="readme-button">ReadMe</button>
     </div>
-
     <!-- Popup ReadMe -->
     <div id="readme-popup">
         <span class="close-button">&times;</span>
@@ -236,7 +325,6 @@
         <p>This table is a summary of all the gonads currently imaged using 3D immunoclearing. For each marker, you can click on it to view the various combinations used across all available developmental stages. Colored cells indicate the number of gonads processed for a given marker and developmental stage. You can also access detailed information by clicking on the corresponding cell. Markers have been evaluated based on their effectiveness: a green marker indicates successful and usable labeling, while a red marker indicates unsuccessful or unusable labeling</p>
         <!-- Ajoutez plus de texte d'explication ici -->
     </div>
-
     <h2>Antibody chart</h2>
     <table>
         <thead>
@@ -284,19 +372,18 @@
             <!-- Les lignes seront ajoutées ici par JavaScript -->
         </tbody>
     </table>
+    <!-- Séparateur -->
+    <hr class="separator">
 
-
-
-
-
-
+    <!-- Texte après le séparateur -->
+    <p class="section-description">In this section, you can select antibodies one by one. The lists are updated based on the available combinations.</p>
     <!-- Modal Structure -->
     <div id="modal" class="modal">
         <div class="modal-content">
             <span class="close-button">&times;</span>
             <h2>Associated combinations</h2>
             <div style="margin-bottom: 15px;">
-                <label for="combo-filter">Filtrer par nombre d'anticorps dans la combinaison :</label>
+                <label for="combo-filter">Filter by number of antibodies in the combination :</label>
                 <select id="combo-filter">
                     <option value="all">Tous</option>
                     <option value="2">2 anticorps</option>
@@ -320,6 +407,36 @@
             </table>
         </div>
     </div>
+
+    <div class="combination-selector">
+        <select id="ac1"></select>
+        <select id="ac2"></select>
+        <select id="ac3"></select>
+        <select id="ac4"></select>
+        <button class="result-button" onclick="showSamples()">Show the samples</button>
+    </div>
+    <div id="statistics">
+        <h3>Statistical Summary</h3>
+        <p><span class="icon">📊</span> Total number of samples tested : <span id="total-samples"></span></p>
+        <p><span class="icon">✅</span> Number of times the antibodies were effective : <span id="total-successful"></span></p>
+        <p><span class="icon">📅</span> Number of ages tested : <span id="total-ages"></span></p>
+    </div>
+    <div id="result">
+        <table>
+            <thead>
+                <tr>
+                    <th>Échantillon</th>
+                    <th>Âge</th>
+                    <th>Organe</th>
+                    <th>Anticorps</th>
+                </tr>
+            </thead>
+            <tbody id="result-body">
+                <!-- Les résultats seront ajoutés ici -->
+            </tbody>
+        </table>
+    </div>
+
 
     <script>
         // Exemple de données (remplace par tes données réelles)
@@ -557,10 +674,8 @@
             { Age: 'Adulte', Organ: 'Testis', Sample: 'PM66', Ac: 'DMRT1', Marche: 'Oui' },
             { Age: 'Adulte', Organ: 'Testis', Sample: 'PM66', Ac: 'Sox9', Marche: 'Oui' }
         ];
-
         // Crée une structure pivotée des données (anticorps par âge)
         const pivot = {};
-
         data.forEach(d => {
             if (!pivot[d.Ac]) {
                 pivot[d.Ac] = {};
@@ -570,31 +685,26 @@
             }
             pivot[d.Ac][d.Age].add(d.Sample);
         });
-
-        // Liste des anticorps et des âges (en extraire depuis les données)
+        // Liste des anticorps et des âges
         const acList = Object.keys(pivot);
         const ageList = [...new Set(data.map(d => d.Age))];
-
         // Fonction pour calculer le nombre de combinaisons (anticorps multiples pour un échantillon à un âge donné)
         const countCombos = (ac) => {
             const uniqueAges = Object.keys(pivot[ac]);
             let comboCount = 0;
-
             uniqueAges.forEach(age => {
                 const samples = Array.from(pivot[ac][age]);
                 samples.forEach(sample => {
                     const acsForSample = data.filter(d => d.Sample === sample && d.Age === age);
-                    if (acsForSample.length > 1) comboCount++; // Si plus d'un anticorps pour cet échantillon
+                    if (acsForSample.length > 1) comboCount++;
                 });
             });
             return comboCount;
         };
-
         // Fonction pour obtenir les anticorps associés à un anticorps donné
         const getAssociatedAc = (ac) => {
             const associatedAcs = new Set();
             const uniqueAges = Object.keys(pivot[ac]);
-
             uniqueAges.forEach(age => {
                 const samples = Array.from(pivot[ac][age]);
                 samples.forEach(sample => {
@@ -608,22 +718,19 @@
             });
             return Array.from(associatedAcs).join(', ');
         };
-
         // Créer le tableau
         const tbody = document.getElementById('table-body');
         acList.forEach(ac => {
             const row = document.createElement("tr");
-            const comboCount = countCombos(ac); // Nombre de combinaisons
-            const associatedAcs = getAssociatedAc(ac); // Anticorps associés à la combinaison
-
+            const comboCount = countCombos(ac);
+            const associatedAcs = getAssociatedAc(ac);
             row.innerHTML = `<td class="acClick">${ac} (${comboCount} combinaison${comboCount !== 1 ? 's' : ''})` +
                 `<div class="tooltip">Combinations: ${associatedAcs}</div></td>` +
                 ageList.map(age => {
                     const count = pivot[ac]?.[age]?.size || 0;
-                    const cellClass = count > 0 ? 'has-value count-cell' : ''; // Ajoute une classe pour les cellules avec une valeur
+                    const cellClass = count > 0 ? 'has-value count-cell' : '';
                     return `<td class="${cellClass}" data-ac="${ac}" data-age="${age}">${count}</td>`;
                 }).join("");
-
             document.querySelectorAll('.count-cell').forEach(cell => {
                 cell.addEventListener('click', function () {
                     const ac = this.getAttribute('data-ac');
@@ -631,15 +738,12 @@
                     displayCombinations(ac, age);
                 });
             });
-
             tbody.appendChild(row);
         });
-
         // Fonction pour afficher les combinaisons dans la modale
         const displayCombinations = (ac, age) => {
             const comboBody = document.getElementById('modal-combination-body');
-            comboBody.innerHTML = ''; // Vide le tableau des combinaisons avant d'afficher les nouvelles
-
+            comboBody.innerHTML = '';
             if (age) {
                 const samples = Array.from(pivot[ac][age] || []);
                 samples.forEach(sample => {
@@ -650,7 +754,6 @@
                         const acStyled = `<span class="${marcheStatus === 'Oui' ? 'marched-oui' : 'marched-non'}">${acName}</span>`;
                         return acStyled;
                     }).join(', ');
-
                     const row = document.createElement("tr");
                     row.dataset.comboCount = acsForSample.length.toString();
                     row.innerHTML = `<td>${combos}</td><td>${sample}</td><td>${age}</td><td>${acsForSample[0]?.Organ}</td>`;
@@ -661,7 +764,6 @@
                     const parse = (val) => parseFloat(val.replace(',', '.'));
                     return parse(a) - parse(b);
                 });
-
                 uniqueAges.forEach(age => {
                     const samples = Array.from(pivot[ac][age]);
                     samples.forEach(sample => {
@@ -672,7 +774,6 @@
                             const acStyled = `<span class="${marcheStatus === 'Oui' ? 'marched-oui' : 'marched-non'}">${acName}</span>`;
                             return acStyled;
                         }).join(', ');
-
                         const row = document.createElement("tr");
                         row.dataset.comboCount = acsForSample.length.toString();
                         row.innerHTML = `<td>${combos}</td><td>${sample}</td><td>${age}</td><td>${acsForSample[0]?.Organ}</td>`;
@@ -680,11 +781,9 @@
                     });
                 });
             }
-
             // Afficher la modale
             document.getElementById('modal').style.display = 'block';
         };
-
         document.getElementById('combo-filter').onchange = function () {
             const selectedValue = this.value;
             const rows = document.querySelectorAll('#modal-combination-body tr');
@@ -698,17 +797,14 @@
                 }
             });
         };
-
-
         // Fermer la modale lorsque l'utilisateur clique sur le bouton de fermeture
         document.querySelectorAll('.close-button').forEach(button => {
             button.onclick = function () {
                 document.getElementById('modal').style.display = 'none';
                 document.getElementById('readme-popup').style.display = 'none';
-                document.getElementById('blur-overlay').style.display = 'none'; // 👈 Ajout
+                document.getElementById('blur-overlay').style.display = 'none';
             };
         });
-
         // Fermer la modale lorsque l'utilisateur clique en dehors de la modale
         window.onclick = function (event) {
             const modal = document.getElementById('modal');
@@ -718,25 +814,157 @@
             }
             if (event.target == readmePopup) {
                 readmePopup.style.display = 'none';
-                document.getElementById('blur-overlay').style.display = 'none'; // 👈 Ajout
+                document.getElementById('blur-overlay').style.display = 'none';
             }
         };
-
         // Afficher la popup ReadMe lorsque l'utilisateur clique sur le bouton
         document.getElementById('readme-button').onclick = function () {
             document.getElementById('readme-popup').style.display = 'block';
-            document.getElementById('blur-overlay').style.display = 'block'; // 👈 Ajout
+            document.getElementById('blur-overlay').style.display = 'block';
         };
-
         // Ajout d'un gestionnaire de clics sur les anticorps
         document.querySelectorAll('.acClick').forEach(cell => {
             cell.addEventListener('click', function () {
-                const ac = this.innerText.split(' ')[0]; // Récupère juste le nom de l'anticorps
+                const ac = this.innerText.split(' ')[0];
                 displayCombinations(ac);
             });
         });
 
-    </script>
 
+
+
+
+
+
+
+
+
+
+
+
+        // Fonction pour calculer et afficher les statistiques
+        const displayStatistics = () => {
+            // Filtrer les données en fonction des anticorps sélectionnés
+            const selectedAcs = [];
+            for (let i = 1; i <= 4; i++) {
+                const select = document.getElementById(`ac${i}`);
+                if (select.value) {
+                    selectedAcs.push(select.value);
+                }
+            }
+
+            const filteredData = data.filter(d => selectedAcs.includes(d.Ac));
+
+            // Calculer le nombre total d'échantillons testés
+            const totalSamples = filteredData.length;
+
+            // Calculer le nombre de fois où les anticorps ont marché
+            const totalSuccessful = filteredData.filter(d => d.Marche === 'Oui').length;
+
+            // Calculer le nombre d'âges uniques testés
+            const agesSet = new Set(filteredData.map(d => d.Age));
+            const totalAges = agesSet.size;
+
+            // Afficher les statistiques
+            document.getElementById('total-samples').textContent = totalSamples;
+            document.getElementById('total-successful').textContent = totalSuccessful;
+            document.getElementById('total-ages').textContent = totalAges;
+        };
+
+        // Fonction pour obtenir les anticorps disponibles en combinaison
+        const getAvailableAntibodies = (selectedAcs) => {
+            const availableAcs = new Set();
+            data.forEach(d => {
+                if (selectedAcs.every(ac => data.some(item => item.Sample === d.Sample && item.Ac === ac))) {
+                    availableAcs.add(d.Ac);
+                }
+            });
+            // Exclure les anticorps déjà sélectionnés
+            selectedAcs.forEach(ac => availableAcs.delete(ac));
+            return Array.from(availableAcs);
+        };
+
+        // Fonction pour remplir les options des listes déroulantes
+        const populateSelect = (selectId, options) => {
+            const select = document.getElementById(selectId);
+            select.innerHTML = '<option value="">Sélectionnez un anticorps</option>';
+            options.forEach(option => {
+                const opt = document.createElement('option');
+                opt.value = option;
+                opt.text = option;
+                select.add(opt);
+            });
+        };
+
+        // Initialiser les listes déroulantes
+        const initSelects = () => {
+            const allAcs = [...new Set(data.map(d => d.Ac))];
+            populateSelect('ac1', allAcs);
+
+            document.getElementById('ac1').addEventListener('change', () => updateSelects(1));
+            document.getElementById('ac2').addEventListener('change', () => updateSelects(2));
+            document.getElementById('ac3').addEventListener('change', () => updateSelects(3));
+        };
+
+        // Mettre à jour les options des listes déroulantes suivantes
+        const updateSelects = (index) => {
+            const selectedAcs = [];
+            for (let i = 1; i <= index; i++) {
+                const select = document.getElementById(`ac${i}`);
+                if (select.value) {
+                    selectedAcs.push(select.value);
+                }
+            }
+
+            if (index < 4) {
+                const availableAcs = getAvailableAntibodies(selectedAcs);
+                populateSelect(`ac${index + 1}`, availableAcs);
+            }
+
+            // Mettre à jour les statistiques après chaque changement
+            displayStatistics();
+        };
+
+        // Afficher les échantillons disponibles pour la combinaison sélectionnée
+        window.showSamples = () => {
+            const selectedAcs = [];
+            for (let i = 1; i <= 4; i++) {
+                const select = document.getElementById(`ac${i}`);
+                if (select.value) {
+                    selectedAcs.push(select.value);
+                }
+            }
+
+            const samples = data.filter(d => selectedAcs.includes(d.Ac));
+            const combinedSamples = samples.reduce((acc, sample) => {
+                const key = `${sample.Sample}-${sample.Age}`;
+                if (!acc[key]) {
+                    acc[key] = { Sample: sample.Sample, Age: sample.Age, Organ: sample.Organ, Acs: [] };
+                }
+                acc[key].Acs.push({ Ac: sample.Ac, Marche: sample.Marche });
+                return acc;
+            }, {});
+
+            const resultBody = document.getElementById('result-body');
+            resultBody.innerHTML = Object.values(combinedSamples)
+                .filter(item => selectedAcs.every(ac => item.Acs.some(a => a.Ac === ac)))
+                .map(item => `
+                    <tr>
+                        <td>${item.Sample}</td>
+                        <td>${item.Age}</td>
+                        <td>${item.Organ}</td>
+                        <td>${item.Acs.map(a =>
+                    `<span class="${a.Marche === 'Oui' ? 'marched-oui' : 'marched-non'}">${a.Ac}</span>`
+                ).join(', ')}</td>
+                    </tr>
+                `).join('');
+        };
+
+        // Initialiser les listes déroulantes et les statistiques au chargement de la page
+        window.onload = () => {
+            initSelects();
+            displayStatistics();
+        };
+    </script>
 </body>
 </html>
