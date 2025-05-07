@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tableau dynamique des anticorps et combinaisons</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+
     <style>
         /* Style général de la page */
         body {
@@ -21,16 +23,17 @@
             text-align: center;
             margin-bottom: 20px;
         }
-        /* Style pour les logos */
-        #main-title .logos {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 10px;
-        }
-        #main-title img {
-            height: 100px;
-        }
+            /* Style pour les logos */
+            #main-title .logos {
+                display: flex;
+                justify-content: center;
+                gap: 10px;
+                margin-bottom: 10px;
+            }
+
+            #main-title img {
+                height: 100px;
+            }
         /* Style pour le bouton ReadMe */
         #readme-button {
             background-color: #748CAB;
@@ -43,9 +46,10 @@
             transition: background-color 0.3s ease;
             margin-top: 10px;
         }
-        #readme-button:hover {
-            background-color: #2874A6;
-        }
+
+            #readme-button:hover {
+                background-color: #2874A6;
+            }
         /* Style de la table principale */
         table {
             width: 100%;
@@ -55,9 +59,11 @@
             border-radius: 10px;
             color: #22223B;
         }
+
         table, th, td {
             border: 1px solid #ddd;
         }
+
         th, td {
             padding: 12px;
             text-align: center;
@@ -76,6 +82,7 @@
         tr:nth-child(even) {
             background-color: #f4f7f8;
         }
+
         tr:nth-child(odd) {
             background-color: #ffffff;
         }
@@ -119,6 +126,7 @@
             color: #28a745; /* Vert pour "Oui" */
             font-weight: bold;
         }
+
         .marched-non {
             color: #dc3545; /* Rouge pour "Non" */
             font-weight: bold;
@@ -140,22 +148,25 @@
             background-color: rgba(0, 0, 0, 0.5);
             padding-top: 60px;
         }
+
         .modal-content {
             background-color: #fff;
             margin: 5% auto;
             padding: 20px;
             border: 1px solid #888;
-            width: 80%;
+            width: 100%;
             max-width: 800px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
             border-radius: 10px;
         }
+
         .close-button {
             color: #aaa;
             float: right;
             font-size: 28px;
             font-weight: bold;
         }
+
             .close-button:hover,
             .close-button:focus {
                 color: black;
@@ -179,14 +190,17 @@
             max-height: 80%;
             overflow-y: auto;
         }
+
             #readme-popup .close-button {
                 position: absolute;
                 top: 10px;
                 right: 10px;
             }
+
             #readme-popup h2 {
                 margin-top: 0;
             }
+
         #blur-overlay {
             display: none;
             position: fixed;
@@ -296,8 +310,99 @@
                 font-size: 24px;
                 color: #588157;
             }
+        /* Ajouter un style pour l'infobulle */
+        .tooltip {
+            pointer-events: none;
+            font-size: 12px;
+        }
 
+        #structure-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
 
+            #structure-table th, #structure-table td {
+                border: 1px solid #ddd;
+                padding: 8px;
+                text-align: left;
+            }
+
+        #structure-popup select {
+            margin-right: 10px;
+            margin-bottom: 10px;
+            padding: 5px;
+        }
+
+        #filter-button {
+            background-color: #748CAB;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-size: 16px;
+            margin-left: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+            #filter-button:hover {
+                background-color: #5a6f8f;
+                transform: scale(1.05);
+            }
+
+        #structure-popup .modal-content {
+            background-color: #fefefe;
+            border-radius: 10px;
+            padding: 20px;
+            width: 90%;
+            max-width: 900px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            font-family: 'Arial', sans-serif;
+        }
+
+        #structure-popup h2 {
+            margin-top: 0;
+            color: #333;
+        }
+
+        #structure-popup label {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        #structure-popup select {
+            padding: 10px;
+            font-size: 14px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+            min-width: 200px;
+        }
+
+        #structure-popup .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 15px;
+            align-items: center;
+        }
+
+        .result-button {
+            background-color: #588157;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+            .result-button:hover {
+                background-color: #3f6b42;
+                transform: scale(1.05);
+            }
     </style>
 </head>
 
@@ -315,9 +420,15 @@
             <img src="IV.png" alt="Logo 2">
         </div>
         <h1>Database of Human Embryonic Testes Processed by Immuno-3D</h1>
-        <!-- Bouton ReadMe -->
+
+
+        <!-- Bouton -->
         <button id="readme-button">ReadMe</button>
+
     </div>
+
+
+
     <!-- Popup ReadMe -->
     <div id="readme-popup">
         <span class="close-button">&times;</span>
@@ -325,6 +436,45 @@
         <p>This table is a summary of all the gonads currently imaged using 3D immunoclearing. For each marker, you can click on it to view the various combinations used across all available developmental stages. Colored cells indicate the number of gonads processed for a given marker and developmental stage. You can also access detailed information by clicking on the corresponding cell. Markers have been evaluated based on their effectiveness: a green marker indicates successful and usable labeling, while a red marker indicates unsuccessful or unusable labeling</p>
         <!-- Ajoutez plus de texte d'explication ici -->
     </div>
+
+
+
+
+    <div id="structure-section">
+        <h2>Données de localisation et structure</h2>
+        <p class="section-description">
+            Cette table affiche les résultats en fonction du marquage, de la localisation et de la structure sélectionnés. Vous pouvez filtrer ces données pour affiner votre recherche, puis cliquer sur "Go" pour voir les échantillons correspondants plus bas.
+        </p>
+        <div class="filters">
+            <label for="filter-marker">Marquage :</label>
+            <select id="filter-marker"><option value="">-- Tous --</option></select>
+
+            <label for="filter-location">Localisation :</label>
+            <select id="filter-location"><option value="">-- Tous --</option></select>
+
+            <label for="filter-structure">Structure :</label>
+            <select id="filter-structure"><option value="">-- Tous --</option></select>
+
+            <button id="go-button" class="result-button">Go</button>
+        </div>
+
+        <table id="structure-table">
+            <thead>
+                <tr>
+                    <th>Âge</th>
+                    <th>Genre</th>
+                    <th>Marquage</th>
+                    <th>Localisation</th>
+                    <th>Quelle structure</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+
+
+
     <h2>Antibody chart</h2>
     <table>
         <thead>
@@ -372,11 +522,23 @@
             <!-- Les lignes seront ajoutées ici par JavaScript -->
         </tbody>
     </table>
+
+
+
+
+
+
     <!-- Séparateur -->
     <hr class="separator">
 
     <!-- Texte après le séparateur -->
     <p class="section-description">In this section, you can select antibodies one by one. The lists are updated based on the available combinations.</p>
+
+
+
+
+
+
     <!-- Modal Structure -->
     <div id="modal" class="modal">
         <div class="modal-content">
@@ -436,6 +598,31 @@
             </tbody>
         </table>
     </div>
+
+
+    <!-- Fenêtre modale d'accueil -->
+    <div id="welcome-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Bienvenue</h2>
+            <p>Bienvenue sur le site ! Voici un message personnalisé que vous pouvez modifier selon vos besoins.</p>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     <script>
@@ -844,7 +1031,7 @@
 
         // Fonction pour calculer et afficher les statistiques
         const displayStatistics = () => {
-            // Filtrer les données en fonction des anticorps sélectionnés
+            // Get the selected antibodies from the dropdowns
             const selectedAcs = [];
             for (let i = 1; i <= 4; i++) {
                 const select = document.getElementById(`ac${i}`);
@@ -853,23 +1040,37 @@
                 }
             }
 
-            const filteredData = data.filter(d => selectedAcs.includes(d.Ac));
+            // Filter the data to find samples that contain all selected antibodies
+            const filteredData = data.filter(d =>
+                selectedAcs.every(ac =>
+                    data.some(item => item.Sample === d.Sample && item.Ac === ac)
+                )
+            );
 
-            // Calculer le nombre total d'échantillons testés
-            const totalSamples = filteredData.length;
+            // Sort filteredData by age in ascending order
+            filteredData.sort((a, b) => {
+                const ageA = parseFloat(a.Age.replace(',', '.'));
+                const ageB = parseFloat(b.Age.replace(',', '.'));
+                return ageA - ageB;
+            });
 
-            // Calculer le nombre de fois où les anticorps ont marché
+            // Calculate the total number of samples that match the combination
+            const totalSamples = new Set(filteredData.map(d => d.Sample)).size;
+
+            // Calculate the number of times the antibodies combination was effective
             const totalSuccessful = filteredData.filter(d => d.Marche === 'Oui').length;
 
-            // Calculer le nombre d'âges uniques testés
+            // Calculate the number of unique ages tested
             const agesSet = new Set(filteredData.map(d => d.Age));
             const totalAges = agesSet.size;
 
-            // Afficher les statistiques
+            // Display the statistics
             document.getElementById('total-samples').textContent = totalSamples;
             document.getElementById('total-successful').textContent = totalSuccessful;
             document.getElementById('total-ages').textContent = totalAges;
         };
+
+
 
         // Fonction pour obtenir les anticorps disponibles en combinaison
         const getAvailableAntibodies = (selectedAcs) => {
@@ -887,7 +1088,7 @@
         // Fonction pour remplir les options des listes déroulantes
         const populateSelect = (selectId, options) => {
             const select = document.getElementById(selectId);
-            select.innerHTML = '<option value="">Sélectionnez un anticorps</option>';
+            select.innerHTML = '<option value="">Select an antibody</option>';
             options.forEach(option => {
                 const opt = document.createElement('option');
                 opt.value = option;
@@ -945,26 +1146,133 @@
                 return acc;
             }, {});
 
+            // Convert combinedSamples to an array and sort by age
+            const sortedCombinedSamples = Object.values(combinedSamples).sort((a, b) => {
+                const ageA = parseFloat(a.Age.replace(',', '.'));
+                const ageB = parseFloat(b.Age.replace(',', '.'));
+                return ageA - ageB;
+            });
+
             const resultBody = document.getElementById('result-body');
-            resultBody.innerHTML = Object.values(combinedSamples)
+            resultBody.innerHTML = sortedCombinedSamples
                 .filter(item => selectedAcs.every(ac => item.Acs.some(a => a.Ac === ac)))
                 .map(item => `
-                    <tr>
-                        <td>${item.Sample}</td>
-                        <td>${item.Age}</td>
-                        <td>${item.Organ}</td>
-                        <td>${item.Acs.map(a =>
+                                                <tr>
+                                                    <td>${item.Sample}</td>
+                                                    <td>${item.Age}</td>
+                                                    <td>${item.Organ}</td>
+                                                    <td>${item.Acs.map(a =>
                     `<span class="${a.Marche === 'Oui' ? 'marched-oui' : 'marched-non'}">${a.Ac}</span>`
                 ).join(', ')}</td>
-                    </tr>
-                `).join('');
+                                                </tr>
+                                            `).join('');
         };
 
-        // Initialiser les listes déroulantes et les statistiques au chargement de la page
+
+
+
+
+
+
+        let structureData = [];
+
+        d3.csv("Classeur2.csv", d3.autoType).then(data => {
+            structureData = data;
+            populateStructureFilters();
+            renderStructureTable();
+        });
+
+
+
+        function populateStructureFilters() {
+            const markers = new Set();
+            const locations = new Set();
+            const structures = new Set();
+            structureData.forEach(d => {
+                markers.add(d.Marquage);
+                locations.add(d.Localisation);
+                structures.add(d.Structure);
+            });
+
+            const addOptions = (selectId, values) => {
+                const select = document.getElementById(selectId);
+                values.forEach(v => {
+                    const opt = document.createElement('option');
+                    opt.value = v;
+                    opt.textContent = v;
+                    select.appendChild(opt);
+                });
+            };
+
+            addOptions('filter-marker', Array.from(markers).sort());
+            addOptions('filter-location', Array.from(locations).sort());
+            addOptions('filter-structure', Array.from(structures).sort());
+        }
+
+        function renderStructureTable() {
+            const marker = document.getElementById('filter-marker').value;
+            const location = document.getElementById('filter-location').value;
+            const structure = document.getElementById('filter-structure').value;
+
+            const tbody = document.querySelector('#structure-table tbody');
+            tbody.innerHTML = "";
+
+            const filtered = structureData.filter(d =>
+                (marker === "" || d.Marquage === marker) &&
+                (location === "" || d.Localisation === location) &&
+                (structure === "" || d.Structure === structure)
+            );
+
+            filtered.forEach(d => {
+                const row = document.createElement("tr");
+                row.innerHTML = `<td>${d.Age}</td><td>${d.Gender}</td><td>${d.Marquage}</td><td>${d.Localisation}</td><td>${d.Structure}</td>`;
+                tbody.appendChild(row);
+            });
+        }
+
+        // Refiltrage dynamique
+        ['filter-marker', 'filter-location', 'filter-structure'].forEach(id =>
+            document.getElementById(id).addEventListener('change', renderStructureTable)
+        );
+        document.getElementById('go-button').onclick = () => {
+            const selectedMarker = document.getElementById('filter-marker').value;
+
+            // Si un anticorps est sélectionné, on pré-sélectionne dans les dropdowns
+            if (selectedMarker) {
+                const ac1 = document.getElementById('ac1');
+                if ([...ac1.options].some(opt => opt.value === selectedMarker)) {
+                    ac1.value = selectedMarker;
+                    ac1.dispatchEvent(new Event('change'));
+                }
+            }
+
+
+            // Afficher les résultats
+            showSamples();
+
+            // Faire défiler jusqu'à la section résultats
+            const resultSection = document.getElementById('result');
+            resultSection.scrollIntoView({ behavior: 'smooth' });
+        };
+
+        // Affiche la popup de bienvenue à l'ouverture
         window.onload = () => {
             initSelects();
+            populateStructureFilters(); // ← AJOUT ICI
             displayStatistics();
+            document.getElementById('welcome-modal').style.display = 'block';
+            document.getElementById('blur-overlay').style.display = 'block';
         };
+
+
+
+        // Ferme la popup de bienvenue
+        document.querySelector('#welcome-modal .close-button').onclick = () => {
+            document.getElementById('welcome-modal').style.display = 'none';
+            document.getElementById('blur-overlay').style.display = 'none';
+        };
+
+
     </script>
 </body>
 </html>
