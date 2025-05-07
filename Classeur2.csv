@@ -1,0 +1,140 @@
+﻿Age;Gender;Marquage;Localisation;Structure
+5,6;M;Sox9;Nucléaire;Manque de significativité
+5,6;M;PLVAP;Cytoplasmique;Cellule endothéliale fenêtré/Glomérule rénale (méso)
+5,6;M;CD31;Membranaire;Endothélium des vaisseaux sanguins
+5,6;M;POU5F1;Nucléaire;Facteur de pluripotence des cellules germinales
+6;M;SMA;Cytoplasmique;Cellule musculaire des gros vaisseaux sanguins
+6;M;PLVAP;Cytoplasmique;Cellule endothéliale fenêtré/Glomérule rénale (méso)
+6;M;Sox9;Nucléaire;Cellule de Sertoli (Tubule mésonéphrotique)
+6;M;Pax8;Nucléaire;Cellule épithéliale des tubules mésonéphrotiques et du canal de Wolff
+6;M;HNF4a;Nucléaire;Corpuscule rénal mésonéphrotique (tubule mésonéphrotique mature)
+6;M;Pax2;Nucléaire;Tubule mésonéphrotique immature
+6,1;M;Oct4/;Nucléaire;Cellule germinal primordial
+6,1;M;TSPAN8;Cytoplasmique;Précurseur des cellules de soutient
+6,1;M;Sox9;Nucléaire;Cellule de Sertoli (tube séminifères)
+6,1;M;PLVAP;Cytoplasmique;Cellule endothéliale fenêtré/Glomérule rénale (méso)
+6,1;M;AMH;Cytoplasmique;Tube séminifères
+6,1;M;Pax8;Nucléaire;Cellule épithéliale des tubules mésonéphrotiques et du canal de Wolff
+6,1;M;Pax2;Nucléaire;Tubule mésonéphrotique immature
+6,4;M;POU5F1;Nucléaire;Facteur de pluripotence des cellules germinales
+6,4;M;COUPTFII;Nucléaire;Cellule mésenchymateuse mésonéphrotique et gonadique
+6,4;M;Pax8;Nucléaire;Cellule épithéliale des tubules mésonéphrotiques et du canal de Wolff
+6,4;M;Sox9;Nucléaire;Cellule de Sertoli (tube séminifères)
+6,6;M;Pax8;Nucléaire;Cellule épithéliale des tubules mésonéphrotiques et du canal de Wolff
+6,6;M;Sox9;Nucléaire;Cellule de Sertoli (tube séminifères)
+6,6;M;GATA3;Nucléaire;Tubule mésonéphrotique immature
+6,6;M;AMH;Cytoplasmique;Tube séminifères
+6,6;M;TSPAN8;Cytoplasmique;Précurseur des cellules de soutient
+6,6;M;PLVAP;Cytoplasmique;Cellule endothéliale fenêtré/Glomérule rénale (méso)
+6,6;M;COUPTFII;Nucléaire;Cellule mésenchymateuse mésonéphrotique et gonadique
+6,6;M;Oct4/;Nucléaire;Cellule mésenchymateuse mésonéphrotique et gonadique
+6,6;M;Lyve-1;Cytoplasmique;Vaisseaux lymphatique
+6,6;M;Iba-1;Cytoplasmique;Système immunitaire - Macrophage ?
+6,6;M;B3Tubuline;Cytoplasmique;Microtubule neuronale
+6,7;M;Iba-1;Cytoplasmique;Système immunitaire - Macrophage ?
+6,7;M;PLVAP;Cytoplasmique;Cellule endothéliale fenêtré/Glomérule rénale (méso)
+6,7;M;CD31;Membranaire;Endothélium des vaisseaux sanguins
+6,7;M;SMA;Cytoplasmique;Cellule musculaire des gros vaisseaux sanguins
+6,9;M;PLVAP;Cytoplasmique;Cellule endothéliale fenêtré/Glomérule rénale (méso)
+6,9;M;CD31;Membranaire;Endothélium des vaisseaux sanguins
+6,9;M;SMA;Cytoplasmique;Cellule musculaire des gros vaisseaux sanguins
+6,9;M;Sox9;Nucléaire;Cellule de Sertoli (tube séminifères)
+6,9;M;POU5F1;Nucléaire;Facteur de pluripotence des cellules germinales
+6,9;M;Wnt6;Cytoplasmique;Cellule péritubulaire
+6,9;M;COUPTFII;Nucléaire;Cellule mésenchymateuse mésonéphrotique et gonadique
+7;M;AMH;Cytoplasmique;Tube séminifères
+7;M;Sox9;Nucléaire;Cellule de Sertoli (tube séminifères)
+7;M;CD31;Membranaire;Endothélium des vaisseaux sanguins
+7;M;SMA;Cytoplasmique;Cellule musculaire des gros vaisseaux sanguins
+7;M;PLVAP;Cytoplasmique;Cellule endothéliale fenêtré/Glomérule rénale (méso)
+7,1;M;Lin28;Cytoplasmique;Facteur de pluripotence des cellules germinales
+7,1;M;PRPH;Cytoplasmique;Filament intermédiaire neuronale
+7,1;M;POU5F1;Nucléaire;Facteur de pluripotence des cellules germinales
+7,1;M;Sox9;Nucléaire;Cellule de Sertoli (tube séminifères)
+7,3;M;Insl3;Cytoplasmique;Cellule de Leydig 
+7,3;M;CYP17A1;Cytoplasmique;Cellule stéroïdogène - Cellule de Leydig
+7,3;M;Lin28;Cytoplasmique;Facteur de pluripotence des cellules germinales
+7,3;M;hVASA;Cytoplasmique;Maturation ARN - Cellule germinale ?
+7,3;M;Oct4/;Nucléaire;Cellule germinal primordial
+7,3;M;COUPTFII;Nucléaire;Cellule mésenchymateuse mésonéphrotique et gonadique
+7,3;M;Ki67;Nucléaire;Marqueur de prolifération (Cellule germinale ?)
+7,3;M;K19;Cytoplasmique;Tubule mésonéphrotique
+7,3;M;SMA;Cytoplasmique;Cellule musculaire des gros vaisseaux sanguins
+7,3;M;Pax8;Nucléaire;Cellule épithéliale des tubules mésonéphrotiques et du canal de Wolff
+7,3;M;Sox9;Nucléaire;Cellule de Sertoli (tube séminifères)
+7,4;M;Insl3;Cytoplasmique;Cellule de Leydig 
+7,4;M;CYP17A1;Cytoplasmique;Cellule stéroïdogène - Cellule de Leydig
+7,5;M;Pax8;Nucléaire;Cellule épithéliale des tubules mésonéphrotiques et du canal de Wolff
+7,5;M;Sox9;Nucléaire;Cellule de Sertoli (tube séminifères)
+7,5;M;GATA3;Nucléaire;Tubule mésonéphrotique immature
+7,6;M;COUPTFII;Nucléaire;Cellule mésenchymateuse mésonéphrotique et gonadique
+7,6;M;Insl3;Cytoplasmique;Cellule de Leydig 
+7,6;M;CYP17A1;Cytoplasmique;Cellule stéroïdogène - Cellule de Leydig
+7,6;M;CD31;Membranaire;Endothélium des vaisseaux sanguins
+7,6;M;TOPRO;Nucléaire;Noyau cellulaire
+7,6;M;Wf;Cytoplasmique;Cellule endothéliale sanguine
+7,7;M;COUPTFII;Nucléaire;Cellule mésenchymateuse mésonéphrotique et gonadique
+7,7;M;Insl3;Cytoplasmique;Cellule de Leydig 
+7,7;M;CYP11A1;Cytoplasmique;Cellule stéroïdogène - Cellule de Leydig
+7,7;M;CYP17A1;Cytoplasmique;Cellule stéroïdogène - Cellule de Leydig
+7,7;M;Oct4/;Nucléaire;Cellule germinal primordial
+7,7;M;Sox9;Nucléaire;Cellule de Sertoli (tube séminifères)
+7,7;M;PLVAP;Cytoplasmique;Cellule endothéliale fenêtré/Glomérule rénale (méso)
+7,7;M;Lyve-1;Cytoplasmique;Vaisseaux lymphatique
+7,9;M;Insl3;Cytoplasmique;Cellule de Leydig 
+7,9;M;CYP17A1;Cytoplasmique;Cellule stéroïdogène - Cellule de Leydig
+7,9;M;COUPTFII;Nucléaire;Cellule mésenchymateuse mésonéphrotique et gonadique
+7,9;M;SMA;Cytoplasmique;Cellule musculaire des gros vaisseaux sanguins
+7,9;M;PLVAP;Cytoplasmique;Cellule endothéliale fenêtré/Glomérule rénale (méso)
+7,9;M;Sox9;Nucléaire;Cellule de Sertoli (tube séminifères)
+7,9;M;CD31;Membranaire;Endothélium des vaisseaux sanguins
+8,1;M;SALL1;Nucléaire;Cellule mésenchymateuse
+8,1;M;MafB;Nucléaire;Cellule mésenchymateuse
+8,1;M;Sox9;Nucléaire;Cellule de Sertoli (tube séminifères)
+8,4;M;Oct4/;Nucléaire;Cellule germinal primordial
+8,5;M;COUPTFII;Nucléaire;Cellule mésenchymateuse mésonéphrotique et gonadique
+8,5;M;Insl3;Cytoplasmique;Cellule de Leydig 
+8,5;M;Oct4/;Nucléaire;Cellule germinal primordial
+8,7;M;Iba1;Cytoplasmique;Système immunitaire - Macrophage ?
+8,7;M;PLVAP;Cytoplasmique;Cellule endothéliale fenêtré/Glomérule rénale (méso)
+8,7;M;CD31;Membranaire;Endothélium des vaisseaux sanguins
+8,7;M;SMA;Cytoplasmique;Cellule musculaire des gros vaisseaux sanguins
+8,7;M;B3Tubuline;Cytoplasmique;Cellule de Sertoli immature ?
+9,1;M;Pax8;Nucléaire;Cellule épithéliale des tubules mésonéphrotiques et du canal de Wolff
+9,1;M;Sox9;Nucléaire;Cellule de Sertoli (tube séminifères)
+9,3;M;COUPTFII;Nucléaire;Cellule mésenchymateuse mésonéphrotique et gonadique
+9,3;M;Insl3;Cytoplasmique;Cellule de Leydig 
+9,3;M;Oct4/;Nucléaire;Cellule germinal primordial
+9,4;M;COUPTFII;Nucléaire;Cellule mésenchymateuse mésonéphrotique et gonadique
+9,4;M;Oct4/;Nucléaire;Cellule germinal primordial
+9,4;M;Sox9;Nucléaire;Cellule de Sertoli (tube séminifères)
+9,5;M;COUPTFII;Nucléaire;Cellule mésenchymateuse mésonéphrotique et gonadique
+9,5;M;Oct4/;Nucléaire;Cellule germinal primordial
+9,5;M;Sox9;Nucléaire;Cellule de Sertoli (tube séminifères)
+9,7;M;Pax8;Nucléaire;Cellule épithéliale des tubules mésonéphrotiques et du canal de Wolff
+9,7;M;Oct4/;Nucléaire;Cellule germinal primordial
+10;M;CD31;Membranaire;Endothélium des vaisseaux sanguins
+10;M;SMA;Cytoplasmique;Cellule musculaire des gros vaisseaux sanguins
+10;M;PLVAP;Cytoplasmique;Cellule endothéliale fenêtré/Glomérule rénale (méso)
+10;M;Sox9;Nucléaire;Cellule de Sertoli (tube séminifères)
+10,3;M;Oct4/;Nucléaire;Cellule germinal primordial
+10,3;M;COUPTFII;Nucléaire;Cellule mésenchymateuse mésonéphrotique et gonadique
+10,3;M;Insl3;Nucléaire;Cellule mésenchymateuse mésonéphrotique et gonadique
+10,6;M;COUPTFII;Nucléaire;Cellule mésenchymateuse mésonéphrotique et gonadique
+10,6;M;Oct4/;Nucléaire;Cellule germinal primordial
+10,6;M;Sox9;Nucléaire;Cellule de Sertoli (tube séminifères)
+10,7;M;PLVAP;Cytoplasmique;Cellule endothéliale fenêtré/Glomérule rénale (méso)
+10,7;M;CD31;Membranaire;Endothélium des vaisseaux sanguins
+11,3;M;COUPTFII;Nucléaire;Cellule mésenchymateuse mésonéphrotique et gonadique
+11,3;M;Oct4/;Nucléaire;Cellule germinal primordial
+11,3;M;Sox9;Nucléaire;Cellule de Sertoli (tube séminifères)
+11,3;M;Pax8;Nucléaire;Cellule épithéliale des tubules mésonéphrotiques et du canal de Wolff
+11,4;M;Pax8;Nucléaire;Cellule épithéliale des tubules mésonéphrotiques et du canal de Wolff
+11,4;M;Sox9;Nucléaire;Cellule de Sertoli (tube séminifères)
+11,7;M;Pax8;Nucléaire;Cellule épithéliale des tubules mésonéphrotiques et du canal de Wolff
+11,7;M;Oct4/;Nucléaire;Cellule germinal primordial
+12;M;CD31;Membranaire;Endothélium des vaisseaux sanguins
+12;M;PLVAP;Cytoplasmique;Cellule endothéliale fenêtré/Glomérule rénale (méso)
+12;M;Sox9;Nucléaire;Cellule de Sertoli (tube séminifères)
+12;M;SMA;Cytoplasmique;Cellule musculaire des gros vaisseaux sanguins
+12;M;Pax8;Nucléaire;Cellule épithéliale des tubules mésonéphrotiques et du canal de Wolff
