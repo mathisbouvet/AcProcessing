@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tableau dynamique des anticorps et combinaisons</title>
     <script src="https://d3js.org/d3.v7.min.js"></script>
-
     <style>
         /* Style général de la page */
         body {
@@ -46,10 +45,6 @@
             transition: background-color 0.3s ease;
             margin-top: 10px;
         }
-
-            #readme-button:hover {
-                background-color: #2874A6;
-            }
         /* Style de la table principale */
         table {
             width: 100%;
@@ -310,11 +305,6 @@
                 font-size: 24px;
                 color: #588157;
             }
-        /* Ajouter un style pour l'infobulle */
-        .tooltip {
-            pointer-events: none;
-            font-size: 12px;
-        }
 
         #structure-table {
             width: 100%;
@@ -403,6 +393,72 @@
                 background-color: #3f6b42;
                 transform: scale(1.05);
             }
+
+        #progress-section {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 40px; /* espace en dessous des barres */
+            margin-top: 20px; /* espace au-dessus */
+        }
+
+        }
+
+        .progress-box {
+            width: 300px;
+            text-align: center;
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            background-color: #ccc;
+            border-radius: 20px;
+            overflow: hidden;
+            height: 25px;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+            margin-top: 10px;
+            color: #cdb4db
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #748CAB, #5a6f8f);
+            border-radius: 20px;
+            animation: progressAnimation 2s ease-out forwards;
+            color: #cdb4db
+        }
+
+        .bar-75 {
+            animation: progress65 2s ease-out forwards;
+        }
+
+        .bar-10 {
+            animation: progress40 2s ease-out forwards;
+            color: #cdb4db
+        }
+
+        @keyframes progress65 {
+            from {
+                width: 0%;
+            }
+
+            to {
+                width: 75%;
+            }
+        }
+
+        @keyframes progress40 {
+            from {
+                width: 0%;
+            }
+
+            to {
+                width: 10%;
+            }
+        }
     </style>
 </head>
 
@@ -425,6 +481,20 @@
         <!-- Bouton -->
         <button id="readme-button">ReadMe</button>
 
+        <div id="progress-section">
+            <div class="progress-box">
+                <h3>Data import for the testis</h3>
+                <div class="progress-bar-container">
+                    <div class="progress-bar-fill bar-75"></div>
+                </div>
+            </div>
+            <div class="progress-box">
+                <h3>Data import for the ovary</h3>
+                <div class="progress-bar-container">
+                    <div class="progress-bar-fill bar-10"></div>
+                </div>
+            </div>
+        </div>
     </div>
 
 
@@ -436,42 +506,6 @@
         <p>This table is a summary of all the gonads currently imaged using 3D immunoclearing. For each marker, you can click on it to view the various combinations used across all available developmental stages. Colored cells indicate the number of gonads processed for a given marker and developmental stage. You can also access detailed information by clicking on the corresponding cell. Markers have been evaluated based on their effectiveness: a green marker indicates successful and usable labeling, while a red marker indicates unsuccessful or unusable labeling</p>
         <!-- Ajoutez plus de texte d'explication ici -->
     </div>
-
-
-
-
-    <div id="structure-section">
-        <h2>Données de localisation et structure</h2>
-        <p class="section-description">
-            Cette table affiche les résultats en fonction du marquage, de la localisation et de la structure sélectionnés. Vous pouvez filtrer ces données pour affiner votre recherche, puis cliquer sur "Go" pour voir les échantillons correspondants plus bas.
-        </p>
-        <div class="filters">
-            <label for="filter-marker">Marquage :</label>
-            <select id="filter-marker"><option value="">-- Tous --</option></select>
-
-            <label for="filter-location">Localisation :</label>
-            <select id="filter-location"><option value="">-- Tous --</option></select>
-
-            <label for="filter-structure">Structure :</label>
-            <select id="filter-structure"><option value="">-- Tous --</option></select>
-
-            <button id="go-button" class="result-button">Go</button>
-        </div>
-
-        <table id="structure-table">
-            <thead>
-                <tr>
-                    <th>Âge</th>
-                    <th>Genre</th>
-                    <th>Marquage</th>
-                    <th>Localisation</th>
-                    <th>Quelle structure</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-    </div>
-
 
 
 
@@ -608,23 +642,6 @@
             <p>Bienvenue sur le site ! Voici un message personnalisé que vous pouvez modifier selon vos besoins.</p>
         </div>
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <script>
         // Exemple de données (remplace par tes données réelles)
         const data = [
@@ -861,6 +878,8 @@
             { Age: 'Adulte', Organ: 'Testis', Sample: 'PM66', Ac: 'DMRT1', Marche: 'Oui' },
             { Age: 'Adulte', Organ: 'Testis', Sample: 'PM66', Ac: 'Sox9', Marche: 'Oui' }
         ];
+
+
         // Crée une structure pivotée des données (anticorps par âge)
         const pivot = {};
         data.forEach(d => {
@@ -1136,7 +1155,13 @@
                 }
             }
 
-            const samples = data.filter(d => selectedAcs.includes(d.Ac));
+            const selectedSampleKeys = new Set(
+                data.filter(d => selectedAcs.every(ac =>
+                    data.some(item => item.Sample === d.Sample && item.Age === d.Age && item.Ac === ac)
+                )).map(d => `${d.Sample}-${d.Age}`)
+            );
+            const samples = data.filter(d => selectedSampleKeys.has(`${d.Sample}-${d.Age}`));
+
             const combinedSamples = samples.reduce((acc, sample) => {
                 const key = `${sample.Sample}-${sample.Age}`;
                 if (!acc[key]) {
@@ -1157,103 +1182,19 @@
             resultBody.innerHTML = sortedCombinedSamples
                 .filter(item => selectedAcs.every(ac => item.Acs.some(a => a.Ac === ac)))
                 .map(item => `
-                                                <tr>
-                                                    <td>${item.Sample}</td>
-                                                    <td>${item.Age}</td>
-                                                    <td>${item.Organ}</td>
-                                                    <td>${item.Acs.map(a =>
+                                                            <tr>
+                                                                <td>${item.Sample}</td>
+                                                                <td>${item.Age}</td>
+                                                                <td>${item.Organ}</td>
+                                                                <td>${item.Acs.map(a =>
                     `<span class="${a.Marche === 'Oui' ? 'marched-oui' : 'marched-non'}">${a.Ac}</span>`
                 ).join(', ')}</td>
-                                                </tr>
-                                            `).join('');
+                                                            </tr>
+                                                        `).join('');
         };
 
 
 
-
-
-
-
-        let structureData = [];
-
-        d3.csv("Classeur2.csv", d3.autoType).then(data => {
-            structureData = data;
-            populateStructureFilters();
-            renderStructureTable();
-        });
-
-
-
-        function populateStructureFilters() {
-            const markers = new Set();
-            const locations = new Set();
-            const structures = new Set();
-            structureData.forEach(d => {
-                markers.add(d.Marquage);
-                locations.add(d.Localisation);
-                structures.add(d.Structure);
-            });
-
-            const addOptions = (selectId, values) => {
-                const select = document.getElementById(selectId);
-                values.forEach(v => {
-                    const opt = document.createElement('option');
-                    opt.value = v;
-                    opt.textContent = v;
-                    select.appendChild(opt);
-                });
-            };
-
-            addOptions('filter-marker', Array.from(markers).sort());
-            addOptions('filter-location', Array.from(locations).sort());
-            addOptions('filter-structure', Array.from(structures).sort());
-        }
-
-        function renderStructureTable() {
-            const marker = document.getElementById('filter-marker').value;
-            const location = document.getElementById('filter-location').value;
-            const structure = document.getElementById('filter-structure').value;
-
-            const tbody = document.querySelector('#structure-table tbody');
-            tbody.innerHTML = "";
-
-            const filtered = structureData.filter(d =>
-                (marker === "" || d.Marquage === marker) &&
-                (location === "" || d.Localisation === location) &&
-                (structure === "" || d.Structure === structure)
-            );
-
-            filtered.forEach(d => {
-                const row = document.createElement("tr");
-                row.innerHTML = `<td>${d.Age}</td><td>${d.Gender}</td><td>${d.Marquage}</td><td>${d.Localisation}</td><td>${d.Structure}</td>`;
-                tbody.appendChild(row);
-            });
-        }
-
-        // Refiltrage dynamique
-        ['filter-marker', 'filter-location', 'filter-structure'].forEach(id =>
-            document.getElementById(id).addEventListener('change', renderStructureTable)
-        );
-        document.getElementById('go-button').onclick = () => {
-            const selectedMarker = document.getElementById('filter-marker').value;
-
-            // Si un anticorps est sélectionné, on pré-sélectionne dans les dropdowns
-            if (selectedMarker) {
-                const ac1 = document.getElementById('ac1');
-                if ([...ac1.options].some(opt => opt.value === selectedMarker)) {
-                    ac1.value = selectedMarker;
-                    ac1.dispatchEvent(new Event('change'));
-                }
-            }
-
-
-            // Afficher les résultats
-            showSamples();
-
-            // Faire défiler jusqu'à la section résultats
-            const resultSection = document.getElementById('result');
-            resultSection.scrollIntoView({ behavior: 'smooth' });
-        };
 
         // Affiche la popup de bienvenue à l'ouverture
         window.onload = () => {
@@ -1271,6 +1212,8 @@
             document.getElementById('welcome-modal').style.display = 'none';
             document.getElementById('blur-overlay').style.display = 'none';
         };
+
+
 
 
     </script>
