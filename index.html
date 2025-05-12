@@ -510,6 +510,11 @@
 
 
     <h2>Antibody chart</h2>
+    <div id="ac-search-container" style="margin: 10px 0;">
+        <input type="text" id="ac-search" placeholder="Search an antibody..." style="padding: 8px; width: 300px; font-size: 14px; border-radius: 5px; border: 1px solid #ccc;">
+    </div>
+
+
     <table>
         <thead>
             <tr>
@@ -632,16 +637,6 @@
             </tbody>
         </table>
     </div>
-
-
-    <!-- Fenêtre modale d'accueil -->
-    <div id="welcome-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-button">&times;</span>
-            <h2>Bienvenue</h2>
-            <p>Bienvenue sur le site ! Voici un message personnalisé que vous pouvez modifier selon vos besoins.</p>
-        </div>
-    </div>
     <script>
         // Exemple de données (remplace par tes données réelles)
         const data = [
@@ -666,8 +661,8 @@
             { Age: '6', Organ: 'Gonad + Meso + Kidney', Sample: 'EH4134', Ac: 'HNF4a', Marche: 'Oui' },
             { Age: '6', Organ: 'Gonad + Meso + Kidney', Sample: 'EH4134', Ac: 'Pax2', Marche: 'Oui' },
             { Age: '6', Organ: 'Gonad + Meso + Kidney', Sample: 'EH2991', Ac: 'CD31', Marche: 'Oui' },
-            { Age: '6', Organ: 'Gonad + Meso + Kidney', Sample: 'EH2991', Ac: 'Pax2', Marche: 'Oui' },
-            { Age: '6', Organ: 'Gonad + Meso + Kidney', Sample: 'EH2991', Ac: 'B3Tubulin', Marche: 'Oui' },
+            { Age: '6', Organ: 'Gonad + Meso + Kidney', Sample: 'EH2991', Ac: 'Pax2', Marche: 'Non' },
+            { Age: '6', Organ: 'Gonad + Meso + Kidney', Sample: 'EH2991', Ac: 'B3Tubulin', Marche: 'Non' },
             { Age: '6,1', Organ: 'Half Gonad', Sample: 'EH3705', Ac: 'Oct4/', Marche: 'Oui' },
             { Age: '6,1', Organ: 'Half Gonad', Sample: 'EH3705', Ac: 'TSPAN8', Marche: 'Non' },
             { Age: '6,1', Organ: 'Half Gonad', Sample: 'EH3705', Ac: 'Sox9', Marche: 'Non' },
@@ -695,12 +690,9 @@
             { Age: '6,4', Organ: 'Meso', Sample: 'EH3532', Ac: 'LHX1', Marche: 'Oui' },
             { Age: '6,4', Organ: 'Meso', Sample: 'EH3532', Ac: 'Wnt1', Marche: 'Oui' },
             { Age: '6,4', Organ: 'Meso', Sample: 'EH3532', Ac: 'Pax2', Marche: 'Oui' },
-            { Age: '6,4', Organ: 'Meso', Sample: 'EH3532', Ac: 'Pax8', Marche: 'Oui' },
+            { Age: '6,4', Organ: 'Meso', Sample: 'EH3532', Ac: 'Pax8', Marche: 'Non' },
             { Age: '6,4', Organ: 'Meso', Sample: 'EH3532', Ac: 'HNF4a', Marche: 'Oui' },
             { Age: '6,4', Organ: 'Meso', Sample: 'EH3532', Ac: 'GATA3', Marche: 'Oui' },
-            { Age: '6,5', Organ: 'Meso + Kidney', Sample: 'EH4134', Ac: 'Pax8', Marche: 'Oui' },
-            { Age: '6,5', Organ: 'Meso + Kidney', Sample: 'EH4134', Ac: 'Pax2', Marche: 'Oui' },
-            { Age: '6,5', Organ: 'Meso + Kidney', Sample: 'EH4134', Ac: 'HNF4a', Marche: 'Oui' },
             { Age: '6,6', Organ: 'Gonad + Meso', Sample: 'EH2988', Ac: 'Pax8', Marche: 'Oui' },
             { Age: '6,6', Organ: 'Gonad + Meso', Sample: 'EH2988', Ac: 'Sox9', Marche: 'Oui' },
             { Age: '6,6', Organ: 'Gonad + Meso', Sample: 'EH2988', Ac: 'GATA3', Marche: 'Oui' },
@@ -713,7 +705,7 @@
             { Age: '6,6', Organ: 'Gonad', Sample: 'EH3755', Ac: 'COUPTFII', Marche: 'Oui' },
             { Age: '6,6', Organ: 'Gonad', Sample: 'EH3755', Ac: 'Sox9', Marche: 'Oui' },
             { Age: '6,6', Organ: 'Gonad', Sample: 'EH3755', Ac: 'Oct4/', Marche: 'Oui' },
-            { Age: '6,6', Organ: 'Gonad + Meso', Sample: 'EH3831', Ac: 'Pax8', Marche: 'Oui' },
+            { Age: '6,6', Organ: 'Gonad + Meso', Sample: 'EH3831', Ac: 'Pax8', Marche: 'Non' },
             { Age: '6,6', Organ: 'Gonad + Meso', Sample: 'EH3831', Ac: 'Sox9', Marche: 'Oui' },
             { Age: '6,6', Organ: 'Gonad + Meso', Sample: 'EH3831', Ac: 'Oct4/', Marche: 'Oui' },
             { Age: '6,6', Organ: 'Gonad + Meso + Kidney', Sample: 'EH3838', Ac: 'Pax8', Marche: 'Oui' },
@@ -1196,36 +1188,35 @@
             resultBody.innerHTML = sortedCombinedSamples
                 .filter(item => selectedAcs.every(ac => item.Acs.some(a => a.Ac === ac)))
                 .map(item => `
-                                                            <tr>
-                                                                <td>${item.Sample}</td>
-                                                                <td>${item.Age}</td>
-                                                                <td>${item.Organ}</td>
-                                                                <td>${item.Acs.map(a =>
+                                                                    <tr>
+                                                                        <td>${item.Sample}</td>
+                                                                        <td>${item.Age}</td>
+                                                                        <td>${item.Organ}</td>
+                                                                        <td>${item.Acs.map(a =>
                     `<span class="${a.Marche === 'Oui' ? 'marched-oui' : 'marched-non'}">${a.Ac}</span>`
                 ).join(', ')}</td>
-                                                            </tr>
-                                                        `).join('');
+                                                                    </tr>
+                                                                `).join('');
         };
 
 
+        document.getElementById('ac-search').addEventListener('input', function () {
+            const filter = this.value.toLowerCase();
+            const rows = document.querySelectorAll('#table-body tr');
+
+            rows.forEach(row => {
+                const acCell = row.querySelector('td');
+                if (acCell) {
+                    // Extraire uniquement le nom de l'anticorps (avant " (")
+                    const acName = acCell.textContent.split(' (')[0].toLowerCase();
+                    row.style.display = acName.includes(filter) ? '' : 'none';
+                }
+            });
+        });
 
 
-        // Affiche la popup de bienvenue à l'ouverture
-        window.onload = () => {
-            initSelects();
-            populateStructureFilters(); // ← AJOUT ICI
-            displayStatistics();
-            document.getElementById('welcome-modal').style.display = 'block';
-            document.getElementById('blur-overlay').style.display = 'block';
-        };
 
 
-
-        // Ferme la popup de bienvenue
-        document.querySelector('#welcome-modal .close-button').onclick = () => {
-            document.getElementById('welcome-modal').style.display = 'none';
-            document.getElementById('blur-overlay').style.display = 'none';
-        };
 
 
 
