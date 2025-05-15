@@ -128,7 +128,7 @@
         }
         /* Ajoutez cette règle CSS dans votre section <style> */
         .has-value {
-            background-color: #f49cbb; /* Couleur dorée pour indiquer une valeur */
+            background-color: #57cc99; /* Couleur dorée pour indiquer une valeur */
         }
         /* Style pour la modale */
         .modal {
@@ -379,7 +379,7 @@
         }
 
         .result-button {
-            background-color: #588157;
+            background-color: #2a9d8f;
             color: white;
             border: none;
             border-radius: 5px;
@@ -459,6 +459,189 @@
                 width: 10%;
             }
         }
+        #modal-combination-table tbody tr {
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+#modal-combination-table tbody tr:hover {
+    background-color: #eef4fa;
+}
+
+.detail-row {
+    background-color: #f9f9f9;
+}
+
+#image-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7); /* assombri */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+#image-modal {
+    position: relative;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 80%;
+    max-height: 80%;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+#image-modal {
+    position: relative;
+    background: white;
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 90vw;
+    max-height: 90vh;
+    overflow: auto;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+#image-modal img {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 80vh;
+    display: block;
+    margin: 0 auto;
+    object-fit: contain;
+}
+
+#close-image {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #aaa;
+    cursor: pointer;
+}
+
+#close-image:hover {
+    color: black;
+}
+
+body.dark-mode {
+  background-color: #121212;
+  color: #e0e0e0;
+}
+
+body.dark-mode table {
+  background-color: #1e1e1e;
+  color: #e0e0e0;
+}
+
+body.dark-mode th {
+  background-color: #333;
+  color: #fff;
+}
+
+body.dark-mode td {
+  background-color: #222;
+  color: #ccc;
+}
+
+body.dark-mode .modal-content {
+  background-color: #2a2a2a;
+  color: white;
+}
+
+body.dark-mode .result-button,
+body.dark-mode #readme-button {
+  background-color: #444;
+  color: white;
+}
+
+body.dark-mode .has-value {
+    background-color: #1faa75; /* plus foncé, plus lisible */
+}
+body.dark-mode .has-value {
+    background-color: #1faa75;  /* ou toute autre couleur adaptée */
+    color: white;               /* texte bien visible */
+}
+/* Style du switch */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+  margin-top: 10px;
+}
+
+/* Cache l'input HTML */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* Le fond du bouton */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  background-color: #ccc;
+  border-radius: 34px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transition: 0.4s;
+}
+
+/* Le curseur glissant */
+.slider::before {
+  content: "🌞";
+  position: absolute;
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  border-radius: 50%;
+  transition: 0.4s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+
+/* Quand coché */
+.switch input:checked + .slider {
+  background-color: #333;
+}
+
+.switch input:checked + .slider::before {
+  transform: translateX(26px);
+  content: "🌙";
+}
+
+#contact-button {
+  background-color: #748CAB;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-left: 10px;
+}
+
+#contact-button:hover {
+  background-color: #5a6f8f;
+}
+
+
+
     </style>
 </head>
 
@@ -468,6 +651,10 @@
 
 
 <body>
+            <label class="switch">
+  <input type="checkbox" id="theme-toggle">
+  <span class="slider"></span>
+</label>
     <div id="blur-overlay"></div>
     <!-- Titre principal avec logos -->
     <div id="main-title">
@@ -480,6 +667,11 @@
 
         <!-- Bouton -->
         <button id="readme-button">ReadMe</button>
+
+
+
+
+
 
         <div id="progress-section">
             <div class="progress-box">
@@ -501,18 +693,43 @@
 
     <!-- Popup ReadMe -->
     <div id="readme-popup">
-        <span class="close-button">&times;</span>
+        <span id="close-readme" class="close-button">&times;</span>
+
         <h2>Explications</h2>
-        <p>This table is a summary of all the gonads currently imaged using 3D immunoclearing. For each marker, you can click on it to view the various combinations used across all available developmental stages. Colored cells indicate the number of gonads processed for a given marker and developmental stage. You can also access detailed information by clicking on the corresponding cell. Markers have been evaluated based on their effectiveness: a green marker indicates successful and usable labeling, while a red marker indicates unsuccessful or unusable labeling</p>
+        <p>Welcome to the inventory of gonad processing.
+The gonads come from human embryos ranging from PCW5.6 to PCW20, with one case from an adult explant.
+For now, only male gonads are included in the samples.
+The first section provides an overview of the different antibodies across all developmental stages.
+By clicking on a cell, you can view detailed information about the combinations used, as well as the antibody details (reference, species, and dilution).
+When available, a preview image of the individual marker is also shown.
+This table is interactive and can be freely filtered by structure or antibody.
+The second table allows for more precise queries with associated combinations.
+Detailed information is also available for each sample.</p>
         <!-- Ajoutez plus de texte d'explication ici -->
     </div>
 
 
 
     <h2>Antibody chart</h2>
-    <div id="ac-search-container" style="margin: 10px 0;">
-        <input type="text" id="ac-search" placeholder="Search an antibody..." style="padding: 8px; width: 300px; font-size: 14px; border-radius: 5px; border: 1px solid #ccc;">
-    </div>
+    <p style="font-style: italic; color: #666; margin-top: -10px; margin-bottom: 15px;">
+This table shows the different antibodies tested at various ages. You can access the details by clicking on the valid cells..
+</p>
+
+<div id="ac-search-container" style="margin: 10px 0; display: flex; align-items: center; gap: 20px;">
+    <input type="text" id="ac-search" placeholder="Search an antibody..." style="padding: 8px; width: 300px; font-size: 14px; border-radius: 5px; border: 1px solid #ccc;">
+    
+    <select id="category-filter" style="padding: 8px; font-size: 14px; border-radius: 5px; border: 1px solid #ccc;">
+        <option value="all">🧪 All categories</option>
+        <option value="neuronal">🧠 Neuronal</option>
+        <option value="muscular">💪 Muscular</option>
+        <option value="vascular">🩸 Vascular / Endothelial</option>
+        <option value="sertoli">🧬 Sertoli Cells</option>
+        <option value="leydig">🧪 Leydig Cells</option>
+        <option value="germinal">🧫 Germ Cells</option>
+        <option value="other">❓ Other</option>
+    </select>
+</div>
+
 
 
     <table>
@@ -524,7 +741,6 @@
                 <th>6,1</th>
                 <th>6,3</th>
                 <th>6,4</th>
-                <th>6,5</th>
                 <th>6,6</th>
                 <th>6,7</th>
                 <th>6,9</th>
@@ -582,15 +798,26 @@
     <div id="modal" class="modal">
         <div class="modal-content">
             <span class="close-button">&times;</span>
+
+    
             <h2>Associated combinations</h2>
+<button id="view-image-btn" class="result-button" style="float: right; margin-bottom: 10px; display: none;">
+</button>
+
+
+
+            <p style="font-style: italic; color: #666; margin-bottom: 10px;">
+    Click on a row to display the details (Supplier, Species, ID, Dilution)
+</p>
+
             <div style="margin-bottom: 15px;">
                 <label for="combo-filter">Filter by number of antibodies in the combination :</label>
                 <select id="combo-filter">
-                    <option value="all">Tous</option>
-                    <option value="2">2 anticorps</option>
-                    <option value="3">3 anticorps</option>
-                    <option value="4">4 anticorps</option>
-                    <option value="5">5 anticorps</option>
+                    <option value="all">All</option>
+                    <option value="2">2 antibodies</option>
+                    <option value="3">3 antibodies</option>
+                    <option value="4">4 antibodies</option>
+                    <option value="5">5 antibodies</option>
                 </select>
             </div>
             <table id="modal-combination-table">
@@ -616,13 +843,34 @@
         <select id="ac4"></select>
         <button class="result-button" onclick="showSamples()">Show the samples</button>
     </div>
-    <div id="statistics">
-        <h3>Statistical Summary</h3>
-        <p><span class="icon">📊</span> Total number of samples tested : <span id="total-samples"></span></p>
-        <p><span class="icon">✅</span> Number of times the antibodies were effective : <span id="total-successful"></span></p>
-        <p><span class="icon">📅</span> Number of ages tested : <span id="total-ages"></span></p>
-    </div>
+<div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; margin: 20px 0;">
+  <div style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); text-align: center; width: 200px;">
+    <div style="font-size: 40px; color: #588157;">📊</div>
+    <div style="font-size: 24px; font-weight: bold;" id="total-samples">0</div>
+    <div style="color: #777;">Total Samples</div>
+  </div>
+  <div style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); text-align: center; width: 200px;">
+    <div style="font-size: 40px; color: #28a745;">✅</div>
+    <div style="font-size: 24px; font-weight: bold;" id="total-successful">0</div>
+    <div style="color: #777;">Successful Antibodies</div>
+  </div>
+  <div style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); text-align: center; width: 200px;">
+    <div style="font-size: 40px; color: #748CAB;">📅</div>
+    <div style="font-size: 24px; font-weight: bold;" id="total-ages">0</div>
+    <div style="color: #777;">Ages Tested</div>
+</div>
+</div>
+
     <div id="result">
+        <div id="result">
+    <p style="font-style: italic; color: #666; margin-bottom: 10px;">
+        Click on a row to display the antibody details (Supplier, Species, ID, Dilution)
+    </p>
+    <table>
+        ...
+    </table>
+</div>
+
         <table>
             <thead>
                 <tr>
@@ -637,256 +885,267 @@
             </tbody>
         </table>
     </div>
+
+<div id="image-overlay" style="display: none;">
+  <div id="image-modal">
+    <span id="close-image">&times;</span>
+    <img id="popup-image" src="" alt="Antibody image">
+  </div>
+</div>
+
+
+
+
     <script>
         // Exemple de données (remplace par tes données réelles)
-        const data = [
-            { Age: '5,6', Organ: 'Gonad + Meso', Sample: 'EH3065', Ac: 'Sox9', Marche: 'Oui' },
-            { Age: '5,6', Organ: 'Gonad + Meso', Sample: 'EH3065', Ac: 'PLVAP', Marche: 'Oui' },
-            { Age: '5,6', Organ: 'Gonad + Meso', Sample: 'EH3065', Ac: 'CD31', Marche: 'Oui' },
-            { Age: '5,6', Organ: 'Gonad + Meso', Sample: 'EH3065', Ac: 'POU5F1', Marche: 'Non' },
-            { Age: '5,6', Organ: 'Meso + Kidney', Sample: 'EH3778-1', Ac: 'Pax8', Marche: 'Oui' },
-            { Age: '5,6', Organ: 'Meso + Kidney', Sample: 'EH3778-1', Ac: 'HNF4a', Marche: 'Oui' },
-            { Age: '5,6', Organ: 'Meso + Kidney', Sample: 'EH3778-1', Ac: 'Pax2', Marche: 'Oui' },
-            { Age: '5,6', Organ: 'Meso + Kidney', Sample: 'EH3778-2', Ac: 'Pax8', Marche: 'Oui' },
-            { Age: '5,6', Organ: 'Meso + Kidney', Sample: 'EH3778-2', Ac: 'HNF4a', Marche: 'Oui' },
-            { Age: '5,6', Organ: 'Meso + Kidney', Sample: 'EH3778-2', Ac: 'GATA3', Marche: 'Oui' },
-            { Age: '6', Organ: 'Gonad', Sample: 'EH2965', Ac: 'SMA', Marche: 'Non' },
-            { Age: '6', Organ: 'Gonad', Sample: 'EH2965', Ac: 'PLVAP', Marche: 'Non' },
-            { Age: '6', Organ: 'Gonad + Meso', Sample: 'EH4009', Ac: 'Pax8', Marche: 'Oui' },
-            { Age: '6', Organ: 'Gonad + Meso', Sample: 'EH4009', Ac: 'Sox9', Marche: 'Oui' },
-            { Age: '6', Organ: 'Gonad + Meso', Sample: 'EH4116', Ac: 'PLVAP', Marche: 'Oui' },
-            { Age: '6', Organ: 'Gonad + Meso', Sample: 'EH4116', Ac: 'Pax8', Marche: 'Oui' },
-            { Age: '6', Organ: 'Gonad + Meso', Sample: 'EH4116', Ac: 'Sox9', Marche: 'Oui' },
-            { Age: '6', Organ: 'Gonad + Meso + Kidney', Sample: 'EH4134', Ac: 'Pax8', Marche: 'Oui' },
-            { Age: '6', Organ: 'Gonad + Meso + Kidney', Sample: 'EH4134', Ac: 'HNF4a', Marche: 'Oui' },
-            { Age: '6', Organ: 'Gonad + Meso + Kidney', Sample: 'EH4134', Ac: 'Pax2', Marche: 'Oui' },
-            { Age: '6', Organ: 'Gonad + Meso + Kidney', Sample: 'EH2991', Ac: 'CD31', Marche: 'Oui' },
-            { Age: '6', Organ: 'Gonad + Meso + Kidney', Sample: 'EH2991', Ac: 'Pax2', Marche: 'Non' },
-            { Age: '6', Organ: 'Gonad + Meso + Kidney', Sample: 'EH2991', Ac: 'B3Tubulin', Marche: 'Non' },
-            { Age: '6,1', Organ: 'Half Gonad', Sample: 'EH3705', Ac: 'Oct4/', Marche: 'Oui' },
-            { Age: '6,1', Organ: 'Half Gonad', Sample: 'EH3705', Ac: 'TSPAN8', Marche: 'Non' },
-            { Age: '6,1', Organ: 'Half Gonad', Sample: 'EH3705', Ac: 'Sox9', Marche: 'Non' },
-            { Age: '6,1', Organ: 'Gonad + Meso', Sample: 'EH4020', Ac: 'PLVAP', Marche: 'Oui' },
-            { Age: '6,1', Organ: 'Gonad + Meso', Sample: 'EH4020', Ac: 'Pax8', Marche: 'Oui' },
-            { Age: '6,1', Organ: 'Gonad + Meso', Sample: 'EH4020', Ac: 'Sox9', Marche: 'Oui' },
-            { Age: '6,1', Organ: 'Gonad + Meso', Sample: 'EH4020', Ac: 'PLVAP', Marche: 'Oui' },
-            { Age: '6,1', Organ: 'Gonad + Meso', Sample: 'EH4020', Ac: 'Pax8', Marche: 'Oui' },
-            { Age: '6,1', Organ: 'Gonad + Meso', Sample: 'EH4020', Ac: 'Sox9', Marche: 'Oui' },
-            { Age: '6,1', Organ: 'Gonad', Sample: 'EH4170', Ac: 'AMH', Marche: 'Non' },
-            { Age: '6,1', Organ: 'Gonad', Sample: 'EH4170', Ac: 'TSPAN8', Marche: 'Non' },
-            { Age: '6,1', Organ: 'Gonad', Sample: 'EH4170', Ac: 'Sox9', Marche: 'Oui' },
-            { Age: '6,1', Organ: 'Gonad + Meso', Sample: 'EH4099_1', Ac: 'Pax8', Marche: 'Oui' },
-            { Age: '6,1', Organ: 'Gonad + Meso', Sample: 'EH4099_1', Ac: 'Pax2', Marche: 'Oui' },
-            { Age: '6,1', Organ: 'Gonad + Meso', Sample: 'EH4099_2', Ac: 'Pax8', Marche: 'Oui' },
-            { Age: '6,1', Organ: 'Gonad + Meso', Sample: 'EH4099_2', Ac: 'Pax2', Marche: 'Oui' },
-            { Age: '6,3', Organ: 'Meso + Kidney', Sample: 'EH4380', Ac: 'Pax8', Marche: 'Oui' },
-            { Age: '6,3', Organ: 'Meso + Kidney', Sample: 'EH4380', Ac: 'Pax2', Marche: 'Oui' },
-            { Age: '6,3', Organ: 'Meso + Kidney', Sample: 'EH4380', Ac: 'HNF4a', Marche: 'Oui' },
-            { Age: '6,4', Organ: 'Gonad + Meso', Sample: 'EH3372', Ac: 'POU5F1', Marche: 'Oui' },
-            { Age: '6,4', Organ: 'Gonad + Meso', Sample: 'EH3372', Ac: 'Sox9', Marche: 'Oui' },
-            { Age: '6,4', Organ: 'Gonad + Meso', Sample: 'EH3372', Ac: 'COUPTFII', Marche: 'Oui' },
-            { Age: '6,4', Organ: 'Gonad', Sample: 'EH3731', Ac: 'Pax8', Marche: 'Oui' },
-            { Age: '6,4', Organ: 'Gonad', Sample: 'EH3731', Ac: 'Sox9', Marche: 'Oui' },
-            { Age: '6,4', Organ: 'Meso', Sample: 'EH3532', Ac: 'LHX1', Marche: 'Oui' },
-            { Age: '6,4', Organ: 'Meso', Sample: 'EH3532', Ac: 'Wnt1', Marche: 'Oui' },
-            { Age: '6,4', Organ: 'Meso', Sample: 'EH3532', Ac: 'Pax2', Marche: 'Oui' },
-            { Age: '6,4', Organ: 'Meso', Sample: 'EH3532', Ac: 'Pax8', Marche: 'Non' },
-            { Age: '6,4', Organ: 'Meso', Sample: 'EH3532', Ac: 'HNF4a', Marche: 'Oui' },
-            { Age: '6,4', Organ: 'Meso', Sample: 'EH3532', Ac: 'GATA3', Marche: 'Oui' },
-            { Age: '6,6', Organ: 'Gonad + Meso', Sample: 'EH2988', Ac: 'Pax8', Marche: 'Oui' },
-            { Age: '6,6', Organ: 'Gonad + Meso', Sample: 'EH2988', Ac: 'Sox9', Marche: 'Oui' },
-            { Age: '6,6', Organ: 'Gonad + Meso', Sample: 'EH2988', Ac: 'GATA3', Marche: 'Oui' },
-            { Age: '6,6', Organ: 'Gonad', Sample: 'EH3717', Ac: 'AMH', Marche: 'Oui' },
-            { Age: '6,6', Organ: 'Gonad', Sample: 'EH3717', Ac: 'TSPAN8', Marche: 'Oui' },
-            { Age: '6,6', Organ: 'Gonad', Sample: 'EH3717', Ac: 'Sox9', Marche: 'Oui' },
-            { Age: '6,6', Organ: 'Gonad', Sample: 'EH3723', Ac: 'PLVAP', Marche: 'Oui' },
-            { Age: '6,6', Organ: 'Gonad', Sample: 'EH3723', Ac: 'Sox9', Marche: 'Oui' },
-            { Age: '6,6', Organ: 'Gonad', Sample: 'EH3723', Ac: 'Lyve-1', Marche: 'Oui' },
-            { Age: '6,6', Organ: 'Gonad', Sample: 'EH3755', Ac: 'COUPTFII', Marche: 'Oui' },
-            { Age: '6,6', Organ: 'Gonad', Sample: 'EH3755', Ac: 'Sox9', Marche: 'Oui' },
-            { Age: '6,6', Organ: 'Gonad', Sample: 'EH3755', Ac: 'Oct4/', Marche: 'Oui' },
-            { Age: '6,6', Organ: 'Gonad + Meso', Sample: 'EH3831', Ac: 'Pax8', Marche: 'Non' },
-            { Age: '6,6', Organ: 'Gonad + Meso', Sample: 'EH3831', Ac: 'Sox9', Marche: 'Oui' },
-            { Age: '6,6', Organ: 'Gonad + Meso', Sample: 'EH3831', Ac: 'Oct4/', Marche: 'Oui' },
-            { Age: '6,6', Organ: 'Gonad + Meso + Kidney', Sample: 'EH3838', Ac: 'Pax8', Marche: 'Oui' },
-            { Age: '6,6', Organ: 'Gonad + Meso + Kidney', Sample: 'EH3838', Ac: 'Sox9', Marche: 'Oui' },
-            { Age: '6,6', Organ: 'Gonad + Meso + Kidney', Sample: 'EH4098', Ac: 'Pax8', Marche: 'Oui' },
-            { Age: '6,6', Organ: 'Gonad + Meso + Kidney', Sample: 'EH4098', Ac: 'Sox9', Marche: 'Oui' },
-            { Age: '6,6', Organ: 'Gonad + Meso + Kidney', Sample: 'EH4098', Ac: 'Oct4/', Marche: 'Oui' },
-            { Age: '6,6', Organ: 'Gonad', Sample: 'EH3605', Ac: 'Iba1', Marche: 'Oui' },
-            { Age: '6,6', Organ: 'Gonad', Sample: 'EH3605', Ac: 'PLVAP', Marche: 'Non' },
-            { Age: '6,6', Organ: 'Gonad', Sample: 'EH3605', Ac: 'B3Tubuline', Marche: 'Non' },
-            { Age: '6,6', Organ: 'Gonad', Sample: 'EH3605', Ac: 'Iba1', Marche: 'Non' },
-            { Age: '6,7', Organ: 'Gonad', Sample: 'EH3590', Ac: 'Iba1', Marche: 'Non' },
-            { Age: '6,7', Organ: 'Gonad', Sample: 'EH3590', Ac: 'PLVAP', Marche: 'Oui' },
-            { Age: '6,7', Organ: 'Gonad', Sample: 'EH3590', Ac: 'CD31', Marche: 'Oui' },
-            { Age: '6,7', Organ: 'Gonad', Sample: 'EH3590', Ac: 'SMA', Marche: 'Non' },
-            { Age: '6,9', Organ: 'Gonad', Sample: 'EH3587', Ac: 'PLVAP', Marche: 'Non' },
-            { Age: '6,9', Organ: 'Gonad', Sample: 'EH3587', Ac: 'CD31', Marche: 'Oui' },
-            { Age: '6,9', Organ: 'Gonad', Sample: 'EH3587', Ac: 'SMA', Marche: 'Oui' },
-            { Age: '6,9', Organ: 'Gonad', Sample: 'EH3017', Ac: 'Sox9', Marche: 'Oui' },
-            { Age: '6,9', Organ: 'Gonad', Sample: 'EH3081', Ac: 'POU5F1', Marche: 'Oui' },
-            { Age: '6,9', Organ: 'Gonad', Sample: 'EH3081', Ac: 'Sox9', Marche: 'Oui' },
-            { Age: '6,9', Organ: 'Gonad', Sample: 'EH3081', Ac: 'COUPTFII', Marche: 'Oui' },
-            { Age: '6,9', Organ: 'Gonad', Sample: 'EH3667', Ac: 'PLVAP', Marche: 'Oui' },
-            { Age: '6,9', Organ: 'Gonad', Sample: 'EH3667', Ac: 'Wnt6', Marche: 'Oui' },
-            { Age: '6,9', Organ: 'Gonad', Sample: 'EH3667', Ac: 'Sox9', Marche: 'Oui' },
-            { Age: '7', Organ: 'Gonad', Sample: 'EH3041', Ac: 'AMH', Marche: 'Oui' },
-            { Age: '7', Organ: 'Gonad', Sample: 'EH3041', Ac: 'Sox9', Marche: 'Oui' },
-            { Age: '7', Organ: 'Gonad + Meso', Sample: 'EH3097', Ac: 'FoxL2', Marche: 'Oui' },
-            { Age: '7', Organ: 'Gonad + Meso', Sample: 'EH3097', Ac: 'Sox9', Marche: 'Oui' },
-            { Age: '7', Organ: 'Gonad', Sample: 'EH3603', Ac: 'CD31', Marche: 'Oui' },
-            { Age: '7', Organ: 'Gonad', Sample: 'EH3603', Ac: 'SMA', Marche: 'Oui' },
-            { Age: '7', Organ: 'Gonad', Sample: 'EH3603', Ac: 'PLVAP', Marche: 'Oui' },
-            { Age: '7', Organ: 'Gonad', Sample: 'EH3603', Ac: 'Sox9', Marche: 'Oui' },
-            { Age: '7,1', Organ: 'Gonad', Sample: 'EH3005', Ac: 'Lin28', Marche: 'Oui' },
-            { Age: '7,1', Organ: 'Gonad', Sample: 'EH3005', Ac: 'PRPH', Marche: 'Oui' },
-            { Age: '7,1', Organ: 'Gonad', Sample: 'EH3505', Ac: 'POU5F1', Marche: 'Oui' },
-            { Age: '7,1', Organ: 'Gonad', Sample: 'EH3505', Ac: 'Sox9', Marche: 'Oui' },
-            { Age: '7,3', Organ: 'Gonad', Sample: 'EH3045', Ac: 'Insl3', Marche: 'Oui' },
-            { Age: '7,3', Organ: 'Gonad', Sample: 'EH3045', Ac: 'CYP17A1', Marche: 'Oui' },
-            { Age: '7,3', Organ: 'Gonad', Sample: 'EH3143', Ac: 'Lin28', Marche: 'Oui' },
-            { Age: '7,3', Organ: 'Gonad', Sample: 'EH3143', Ac: 'hVASA', Marche: 'Oui' },
-            { Age: '7,3', Organ: 'Gonad', Sample: 'EH3143', Ac: 'Oct4/', Marche: 'Oui' },
-            { Age: '7,3', Organ: 'Gonad', Sample: 'EH3437', Ac: 'COUPTFII', Marche: 'Oui' },
-            { Age: '7,3', Organ: 'Gonad', Sample: 'EH3437', Ac: 'Insl3', Marche: 'Oui' },
-            { Age: '7,3', Organ: 'Gonad', Sample: 'EH3437', Ac: 'CYP17A1', Marche: 'Oui' },
-            { Age: '7,6', Organ: 'Meso', Sample: 'EH3570', Ac: 'HUCD', Marche: 'Non' },
-            { Age: '7,6', Organ: 'Meso', Sample: 'EH3570', Ac: 'shTH', Marche: 'Oui' },
-            { Age: '7,6', Organ: 'Meso', Sample: 'EH3570', Ac: 'PHOX2B', Marche: 'Oui' },
-            { Age: '7,3', Organ: 'Gonad + Meso', Sample: 'EH3573', Ac: 'KI67', Marche: 'Oui' },
-            { Age: '7,3', Organ: 'Gonad + Meso', Sample: 'EH3573', Ac: 'K19', Marche: 'Oui' },
-            { Age: '7,3', Organ: 'Gonad', Sample: 'EH3126-2', Ac: 'SMA', Marche: 'Oui' },
-            { Age: '7,3', Organ: 'Gonad', Sample: 'EH3126-2', Ac: 'Pax8', Marche: 'Oui' },
-            { Age: '7,3', Organ: 'Gonad', Sample: 'EH3126-2', Ac: 'Sox9', Marche: 'Oui' },
-            { Age: '7,3', Organ: 'Gonad + Meso + Kidney + Tractus', Sample: 'EH2870', Ac: 'PLVAP', Marche: 'Oui' },
-            { Age: '7,3', Organ: 'Gonad + Meso + Kidney + Tractus', Sample: 'EH2870', Ac: 'B3Tubuline', Marche: 'Oui' },
-            { Age: '7,3', Organ: 'Gonad + Meso + Kidney + Tractus', Sample: 'EH2870', Ac: 'Pax2', Marche: 'Oui' },
-            { Age: '7,4', Organ: 'Méso', Sample: 'EH4090-M', Ac: 'HNF4a', Marche: 'Oui' },
-            { Age: '7,4', Organ: 'Méso', Sample: 'EH4090-M', Ac: 'GATA3', Marche: 'Oui' },
-            { Age: '7,4', Organ: 'Méso', Sample: 'EH4090-M', Ac: 'Jag1', Marche: 'Non' },
-            { Age: '7,4', Organ: 'Gonad', Sample: 'EH4090-T', Ac: 'Insl3', Marche: 'Oui' },
-            { Age: '7,4', Organ: 'Gonad', Sample: 'EH4090-T', Ac: 'CYP17A1', Marche: 'Oui' },
-            { Age: '7,4', Organ: 'Gonad', Sample: 'EH4118', Ac: 'Insl3', Marche: 'Non' },
-            { Age: '7,4', Organ: 'Gonad', Sample: 'EH4118', Ac: 'CYP17A1', Marche: 'Non' },
-            { Age: '7,4', Organ: 'Meso', Sample: 'EH4090', Ac: 'HNF4a', Marche: 'Oui' },
-            { Age: '7,4', Organ: 'Meso', Sample: 'EH4090', Ac: 'GATA4', Marche: 'Oui' },
-            { Age: '7,4', Organ: 'Meso', Sample: 'EH4090', Ac: 'Jag1', Marche: 'Oui' },
-            { Age: '7,5', Organ: 'Gonad + Meso + Kidney', Sample: 'EH3622', Ac: 'Pax8', Marche: 'Oui' },
-            { Age: '7,5', Organ: 'Gonad + Meso + Kidney', Sample: 'EH3622', Ac: 'Sox9', Marche: 'Oui' },
-            { Age: '7,5', Organ: 'Gonad + Meso + Kidney', Sample: 'EH3622', Ac: 'GATA3', Marche: 'Oui' },
-            { Age: '7,6', Organ: 'Gonad', Sample: 'EH3509', Ac: 'COUPTFII', Marche: 'Oui' },
-            { Age: '7,6', Organ: 'Gonad', Sample: 'EH3509', Ac: 'Insl3', Marche: 'Oui' },
-            { Age: '7,6', Organ: 'Gonad', Sample: 'EH3509', Ac: 'CYP17A1', Marche: 'Oui' },
-            { Age: '7,6', Organ: 'Gonad', Sample: 'EH3570', Ac: 'CD31', Marche: 'Oui' },
-            { Age: '7,6', Organ: 'Gonad', Sample: 'EH3570', Ac: 'TOPRO', Marche: 'Oui' },
-            { Age: '7,6', Organ: 'Gonad', Sample: 'EH3570', Ac: 'Wf', Marche: 'Oui' },
-            { Age: '7,6', Organ: 'Gonad', Sample: 'EH3579', Ac: 'COUPTFII', Marche: 'Oui' },
-            { Age: '7,6', Organ: 'Gonad', Sample: 'EH3579', Ac: 'Insl3', Marche: 'Oui' },
-            { Age: '7,6', Organ: 'Gonad', Sample: 'EH3579', Ac: 'CYP17A1', Marche: 'Oui' },
-            { Age: '7,6', Organ: 'Gonad', Sample: 'EH4006', Ac: 'Insl3', Marche: 'Oui' },
-            { Age: '7,6', Organ: 'Gonad', Sample: 'EH4006', Ac: 'CYP17A1', Marche: 'Oui' },
-            { Age: '7,7', Organ: 'Gonad', Sample: 'EH3456', Ac: 'COUPTFII', Marche: 'Oui' },
-            { Age: '7,7', Organ: 'Gonad', Sample: 'EH3456', Ac: 'Insl3', Marche: 'Oui' },
-            { Age: '7,7', Organ: 'Gonad', Sample: 'EH3456', Ac: 'CYP17A1', Marche: 'Oui' },
-            { Age: '7,7', Organ: 'Gonad', Sample: 'EH3674', Ac: 'COUPTFII', Marche: 'Oui' },
-            { Age: '7,7', Organ: 'Gonad', Sample: 'EH3674', Ac: 'Insl3', Marche: 'Oui' },
-            { Age: '7,7', Organ: 'Gonad', Sample: 'EH3674', Ac: 'CYP17A1', Marche: 'Oui' },
-            { Age: '7,7', Organ: 'Gonad', Sample: 'EH3154', Ac: 'Oct4/', Marche: 'Oui' },
-            { Age: '7,7', Organ: 'Gonad', Sample: 'EH3154', Ac: 'Sox9', Marche: 'Oui' },
-            { Age: '7,7', Organ: 'Gonad', Sample: 'EH3154', Ac: 'COUPTFII', Marche: 'Oui' },
-            { Age: '7,7', Organ: 'Gonad + Meso', Sample: 'EH3007', Ac: 'Insl3', Marche: 'Oui' },
-            { Age: '7,7', Organ: 'Gonad + Meso', Sample: 'EH3007', Ac: 'Sox9', Marche: 'Oui' },
-            { Age: '7,7', Organ: 'Gonad + Meso', Sample: 'EH3030', Ac: 'CYP11A1', Marche: 'Oui' },
-            { Age: '7,7', Organ: 'Gonad + Meso', Sample: 'EH3030', Ac: 'Sox9', Marche: 'Oui' },
-            { Age: '7,7', Organ: 'Gonad + Meso', Sample: 'EH3758', Ac: 'PLVAP', Marche: 'Oui' },
-            { Age: '7,7', Organ: 'Gonad + Meso', Sample: 'EH3758', Ac: 'LYVE-1', Marche: 'Oui' },
-            { Age: '7,7', Organ: 'Gonad + Meso', Sample: 'EH3758', Ac: 'Sox9', Marche: 'Oui' },
-            { Age: '7,7', Organ: 'Gonad', Sample: 'EH3761-1', Ac: 'COUPTFII', Marche: 'Oui' },
-            { Age: '7,7', Organ: 'Gonad', Sample: 'EH3761-1', Ac: 'Sox9', Marche: 'Oui' },
-            { Age: '7,7', Organ: 'Gonad', Sample: 'EH3761-1', Ac: 'Oct4/', Marche: 'Oui' },
-            { Age: '7,9', Organ: 'Gonad', Sample: 'EH2845-1', Ac: 'Insl3', Marche: 'Oui' },
-            { Age: '7,9', Organ: 'Gonad', Sample: 'EH2845-1', Ac: 'CYP17A1', Marche: 'Oui' },
-            { Age: '7,9', Organ: 'Gonad', Sample: 'EH3508', Ac: 'COUPTFII', Marche: 'Oui' },
-            { Age: '7,9', Organ: 'Gonad', Sample: 'EH3508', Ac: 'Insl3', Marche: 'Oui' },
-            { Age: '7,9', Organ: 'Gonad', Sample: 'EH3508', Ac: 'CYP17A1', Marche: 'Oui' },
-            { Age: '7,9', Organ: 'Gonad', Sample: 'EH2845', Ac: 'SMA', Marche: 'Oui' },
-            { Age: '7,9', Organ: 'Gonad', Sample: 'EH2845', Ac: 'PLVAP', Marche: 'Oui' },
-            { Age: '7,9', Organ: 'Gonad', Sample: 'EH2845', Ac: 'Sox9', Marche: 'Oui' },
-            { Age: '7,9', Organ: 'Gonad', Sample: 'EH3578', Ac: 'CD31', Marche: 'Oui' },
-            { Age: '7,9', Organ: 'Gonad', Sample: 'EH3578', Ac: 'SMA', Marche: 'Oui' },
-            { Age: '7,9', Organ: 'Gonad', Sample: 'EH3578', Ac: 'PLVAP', Marche: 'Oui' },
-            { Age: '7,9', Organ: 'Gonad', Sample: 'EH3578', Ac: 'Sox9', Marche: 'Oui' },
-            { Age: '8,1', Organ: 'Gonad', Sample: 'EH3575', Ac: 'SALL1', Marche: 'Oui' },
-            { Age: '8,1', Organ: 'Gonad', Sample: 'EH3575', Ac: 'MafB', Marche: 'Oui' },
-            { Age: '8,1', Organ: 'Gonad', Sample: 'EH3575', Ac: 'Sox9', Marche: 'Oui' },
-            { Age: '8,4', Organ: 'Gonad', Sample: 'EH3586', Ac: 'Oct4/', Marche: 'Oui' },
-            { Age: '8,5', Organ: 'Gonad', Sample: 'EH3591', Ac: 'COUPTFII', Marche: 'Oui' },
-            { Age: '8,5', Organ: 'Gonad', Sample: 'EH3591', Ac: 'Insl3', Marche: 'Oui' },
-            { Age: '8,5', Organ: 'Gonad', Sample: 'EH3591', Ac: 'Oct4/', Marche: 'Oui' },
-            { Age: '8,7', Organ: 'Gonad', Sample: 'AC3549', Ac: 'Iba1', Marche: 'Non' },
-            { Age: '8,7', Organ: 'Gonad', Sample: 'AC3549', Ac: 'PLVAP', Marche: 'Oui' },
-            { Age: '8,7', Organ: 'Gonad', Sample: 'AC3549', Ac: 'CD31', Marche: 'Oui' },
-            { Age: '8,7', Organ: 'Gonad', Sample: 'AC3549', Ac: 'SMA', Marche: 'Oui' },
-            { Age: '8,7', Organ: 'Gonad', Sample: 'AC374', Ac: 'PLVAP', Marche: 'Oui' },
-            { Age: '8,7', Organ: 'Gonad', Sample: 'AC374', Ac: 'PLVAP', Marche: 'Oui' },
-            { Age: '8,7', Organ: 'Gonad', Sample: 'AC374', Ac: 'B3Tubuline', Marche: 'Oui' },
-            { Age: '8,7', Organ: 'Gonad', Sample: 'AC374', Ac: 'Iba1', Marche: 'Oui' },
-            { Age: '8,7', Organ: 'Gonad', Sample: 'AC374', Ac: 'PLVAP', Marche: 'Oui' },
-            { Age: '8,7', Organ: 'Gonad', Sample: 'AC374', Ac: 'B3Tubuline', Marche: 'Oui' },
-            { Age: '8,7', Organ: 'Gonad', Sample: 'AC374', Ac: 'Iba1', Marche: 'Oui' },
-            { Age: '9,1', Organ: 'Meso', Sample: 'EH3799-G', Ac: 'Pax8', Marche: 'Oui' },
-            { Age: '9,1', Organ: 'Meso', Sample: 'EH3799-G', Ac: 'Sox9', Marche: 'Oui' },
-            { Age: '9,3', Organ: 'Gonad', Sample: 'EH3552', Ac: 'COUPTFII', Marche: 'Oui' },
-            { Age: '9,3', Organ: 'Gonad', Sample: 'EH3552', Ac: 'Insl3', Marche: 'Oui' },
-            { Age: '9,3', Organ: 'Gonad', Sample: 'EH3552', Ac: 'Oct4/', Marche: 'Oui' },
-            { Age: '9,4', Organ: 'Gonad', Sample: 'EH3596', Ac: 'COUPTFII', Marche: 'Oui' },
-            { Age: '9,4', Organ: 'Gonad', Sample: 'EH3596', Ac: 'Oct4/', Marche: 'Oui' },
-            { Age: '9,4', Organ: 'Gonad', Sample: 'EH3596', Ac: 'Sox9', Marche: 'Oui' },
-            { Age: '9,5', Organ: 'Gonad', Sample: 'EH3506', Ac: 'COUPTFII', Marche: 'Oui' },
-            { Age: '9,5', Organ: 'Gonad', Sample: 'EH3506', Ac: 'Oct4/', Marche: 'Oui' },
-            { Age: '9,5', Organ: 'Gonad', Sample: 'EH3506', Ac: 'Sox9', Marche: 'Oui' },
-            { Age: '9,7', Organ: 'Gonad', Sample: 'EH3836', Ac: 'Pax8', Marche: 'Oui' },
-            { Age: '9,7', Organ: 'Gonad', Sample: 'EH3836', Ac: 'Oct4/', Marche: 'Oui' },
-            { Age: '10', Organ: 'Gonad', Sample: 'EH3604', Ac: 'CD31', Marche: 'Oui' },
-            { Age: '10', Organ: 'Gonad', Sample: 'EH3604', Ac: 'SMA', Marche: 'Oui' },
-            { Age: '10', Organ: 'Gonad', Sample: 'EH3604', Ac: 'PLVAP', Marche: 'Oui' },
-            { Age: '10', Organ: 'Gonad', Sample: 'EH3604', Ac: 'Sox9', Marche: 'Oui' },
-            { Age: '10,3', Organ: 'Gonad', Sample: 'EH3483', Ac: 'Oct4/', Marche: 'Oui' },
-            { Age: '10,3', Organ: 'Gonad', Sample: 'EH3483', Ac: 'COUPTFII', Marche: 'Oui' },
-            { Age: '10,3', Organ: 'Gonad', Sample: 'EH3483', Ac: 'Insl3', Marche: 'Oui' },
-            { Age: '10,3', Organ: 'Gonad', Sample: 'EH3483', Ac: 'Oct4/', Marche: 'Oui' },
-            { Age: '10,6', Organ: 'Gonad', Sample: 'EH3574', Ac: 'COUPTFII', Marche: 'Oui' },
-            { Age: '10,6', Organ: 'Gonad', Sample: 'EH3574', Ac: 'Oct4/', Marche: 'Oui' },
-            { Age: '10,6', Organ: 'Gonad', Sample: 'EH3574', Ac: 'Sox9', Marche: 'Oui' },
-            { Age: '10,7', Organ: 'Gonad', Sample: 'AC377-3', Ac: 'PLVAP', Marche: 'Oui' },
-            { Age: '10,7', Organ: 'Gonad', Sample: 'AC377-3', Ac: 'CD31', Marche: 'Oui' },
-            { Age: '11,3', Organ: 'Gonad', Sample: 'EH3504', Ac: 'COUPTFII', Marche: 'Oui' },
-            { Age: '11,3', Organ: 'Gonad', Sample: 'EH3504', Ac: 'Oct4/', Marche: 'Oui' },
-            { Age: '11,3', Organ: 'Gonad', Sample: 'EH3504', Ac: 'Sox9', Marche: 'Oui' },
-            { Age: '11,3', Organ: 'Gonad', Sample: 'EH4109', Ac: 'Pax8', Marche: 'Oui' },
-            { Age: '11,3', Organ: 'Gonad', Sample: 'EH4109', Ac: 'Oct4/', Marche: 'Oui' },
-            { Age: '11,4', Organ: 'Gonad', Sample: 'EH3752', Ac: 'Pax8', Marche: 'Oui' },
-            { Age: '11,4', Organ: 'Gonad', Sample: 'EH3752', Ac: 'Sox9', Marche: 'Oui' },
-            { Age: '11,7', Organ: 'Gonad', Sample: 'AC369-LHS', Ac: 'PLVAP', Marche: 'Oui' },
-            { Age: '11,7', Organ: 'Gonad', Sample: 'AC369-LHS', Ac: 'B3Tubuline', Marche: 'Oui' },
-            { Age: '11,7', Organ: 'Gonad', Sample: 'AC369-LHS', Ac: 'Oct4/', Marche: 'Non' },
-            { Age: '11,7', Organ: 'Gonad', Sample: 'AC369-RHS', Ac: 'PLVAP', Marche: 'Oui' },
-            { Age: '11,7', Organ: 'Gonad', Sample: 'AC369-RHS', Ac: 'B3Tubuline', Marche: 'Oui' },
-            { Age: '11,7', Organ: 'Gonad', Sample: 'AC369-RHS', Ac: 'Oct4/', Marche: 'Oui' },
-            { Age: '11,7', Organ: 'Gonad', Sample: 'EH4115', Ac: 'Pax8', Marche: 'Oui' },
-            { Age: '11,7', Organ: 'Gonad', Sample: 'EH4115', Ac: 'Oct4/', Marche: 'Oui' },
-            { Age: '12', Organ: 'Gonad', Sample: 'EH3524', Ac: 'CD31', Marche: 'Oui' },
-            { Age: '12', Organ: 'Gonad', Sample: 'EH3524', Ac: 'PLVAP', Marche: 'Oui' },
-            { Age: '12', Organ: 'Gonad', Sample: 'EH3524', Ac: 'Sox9', Marche: 'Oui' },
-            { Age: '12', Organ: 'Gonad', Sample: 'EH3524', Ac: 'SMA', Marche: 'Oui' },
-            { Age: '12', Organ: 'Gonad', Sample: 'EH3621', Ac: 'Sox9', Marche: 'Oui' },
-            { Age: '12', Organ: 'Gonad', Sample: 'EH3651', Ac: 'Pax8', Marche: 'Non' },
-            { Age: '12', Organ: 'Gonad', Sample: 'EH3651', Ac: 'Sox9', Marche: 'Non' },
-            { Age: 'Adulte', Organ: 'Gonad', Sample: 'PM66', Ac: 'AMH', Marche: 'Oui' },
-            { Age: 'Adulte', Organ: 'Gonad', Sample: 'PM66', Ac: 'DMRT1', Marche: 'Oui' },
-            { Age: 'Adulte', Organ: 'Gonad', Sample: 'PM66', Ac: 'Sox9', Marche: 'Oui' }
-        ];
+const data = [
+  { Sample: 'EH3065', Age: '5,6', Organ: 'Gonad + Meso', Ac: 'Sox9', Marche: 'Oui', Supplier: 'null', Species: 'null', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH3065', Age: '5,6', Organ: 'Gonad + Meso', Ac: 'PLVAP', Marche: 'Oui', Supplier: 'Abcam', Species: 'Mouse', ID: 'ab81719', Dilution: 'null' },
+  { Sample: 'EH3065', Age: '5,6', Organ: 'Gonad + Meso', Ac: 'CD31', Marche: 'Oui', Supplier: 'null', Species: 'null', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH3065', Age: '5,6', Organ: 'Gonad + Meso', Ac: 'POU5F1', Marche: 'Non', Supplier: 'null', Species: 'null', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH3778-1', Age: '5,6', Organ: 'Meso + Kidney', Ac: 'Pax8', Marche: 'Oui', Supplier: 'null', Species: 'null', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH3778-1', Age: '5,6', Organ: 'Meso + Kidney', Ac: 'HNF4a', Marche: 'Oui', Supplier: 'null', Species: 'null', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH3778-1', Age: '5,6', Organ: 'Meso + Kidney', Ac: 'Pax2', Marche: 'Oui', Supplier: 'R&D System', Species: 'Goat', ID: 'AF3364', Dilution: 'null' },
+  { Sample: 'EH3778-2', Age: '5,6', Organ: 'Meso + Kidney', Ac: 'Pax8', Marche: 'Oui', Supplier: 'null', Species: 'null', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH3778-2', Age: '5,6', Organ: 'Meso + Kidney', Ac: 'HNF4a', Marche: 'Oui', Supplier: 'null', Species: 'null', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH3778-2', Age: '5,6', Organ: 'Meso + Kidney', Ac: 'GATA3', Marche: 'Oui', Supplier: 'null', Species: 'null', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH2965', Age: '6', Organ: 'Gonad', Ac: 'SMA', Marche: 'Non', Supplier: 'Abcam', Species: 'Rabbit', ID: 'ab5694', Dilution: '(1:1000)' },
+  { Sample: 'EH2965', Age: '6', Organ: 'Gonad', Ac: 'PLVAP', Marche: 'Non', Supplier: 'Abcam', Species: 'Mouse', ID: 'ab81719', Dilution: '(1:150)' },
+  { Sample: 'EH4009', Age: '6', Organ: 'Gonad + Meso', Ac: 'Pax8', Marche: 'Oui', Supplier: 'Proteintech', Species: 'Rabbit', ID: '10336-1-AP', Dilution: 'null' },
+  { Sample: 'EH4009', Age: '6', Organ: 'Gonad + Meso', Ac: 'Sox9', Marche: 'Oui', Supplier: 'R&D System', Species: 'Goat', ID: 'AF3075', Dilution: 'null' },
+  { Sample: 'EH4116', Age: '6', Organ: 'Gonad + Meso', Ac: 'PLVAP', Marche: 'Oui', Supplier: 'Abcam', Species: 'Mouse', ID: 'ab81719', Dilution: 'null' },
+  { Sample: 'EH4116', Age: '6', Organ: 'Gonad + Meso', Ac: 'Pax8', Marche: 'Oui', Supplier: 'Proteintech', Species: 'Rabbit', ID: '10336-1-AP', Dilution: 'null' },
+  { Sample: 'EH4116', Age: '6', Organ: 'Gonad + Meso', Ac: 'Sox9', Marche: 'Oui', Supplier: 'R&D System', Species: 'Goat', ID: 'AF3075', Dilution: 'null' },
+  { Sample: 'EH4134', Age: '6', Organ: 'Gonad + Meso + Kidney', Ac: 'Pax8', Marche: 'Oui', Supplier: 'null', Species: 'null', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH4134', Age: '6', Organ: 'Gonad + Meso + Kidney', Ac: 'HNF4a', Marche: 'Oui', Supplier: 'null', Species: 'null', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH4134', Age: '6', Organ: 'Gonad + Meso + Kidney', Ac: 'Pax2', Marche: 'Oui', Supplier: 'null', Species: 'null', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH2991', Age: '6', Organ: 'Gonad + Meso + Kidney', Ac: 'CD31', Marche: 'Oui', Supplier: 'DSHB', Species: 'Armenian hamster', ID: '2H8', Dilution: '(1:2000)' },
+  { Sample: 'EH2991', Age: '6', Organ: 'Gonad + Meso + Kidney', Ac: 'Pax2', Marche: 'Non', Supplier: 'Santa Cruz', Species: 'Mouse', ID: '130387', Dilution: '(1:3000)' },
+  { Sample: 'EH2991', Age: '6', Organ: 'Gonad + Meso + Kidney', Ac: 'B3Tubuline', Marche: 'Non', Supplier: 'Sigma-Aldrich', Species: 'Rabbit', ID: 'T2200', Dilution: '(1:2000)' },
+  { Sample: 'EH3705', Age: '6,1', Organ: 'Half Gonad', Ac: 'Oct4/', Marche: 'Oui', Supplier: 'Abcam', Species: 'Mouse', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH3705', Age: '6,1', Organ: 'Half Gonad', Ac: 'TSPAN8', Marche: 'Non', Supplier: 'Sigma', Species: 'Rabbit', ID: 'HPA044337', Dilution: 'null' },
+  { Sample: 'EH3705', Age: '6,1', Organ: 'Half Gonad', Ac: 'Sox9', Marche: 'Non', Supplier: 'null', Species: 'null', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH4020', Age: '6,1', Organ: 'Gonad + Meso', Ac: 'PLVAP', Marche: 'Oui', Supplier: 'Abcam', Species: 'Mouse', ID: 'ab81719', Dilution: 'null' },
+  { Sample: 'EH4020', Age: '6,1', Organ: 'Gonad + Meso', Ac: 'Pax8', Marche: 'Oui', Supplier: 'Proteintech', Species: 'Rabbit', ID: '10336-1-AP', Dilution: 'null' },
+  { Sample: 'EH4020', Age: '6,1', Organ: 'Gonad + Meso', Ac: 'Sox9', Marche: 'Oui', Supplier: 'R&D System', Species: 'Goat', ID: 'AF3075', Dilution: 'null' },
+  { Sample: 'EH4020', Age: '6,1', Organ: 'Gonad + Meso', Ac: 'PLVAP', Marche: 'Oui', Supplier: 'Abcam', Species: 'Mouse', ID: 'ab81719', Dilution: 'null' },
+  { Sample: 'EH4020', Age: '6,1', Organ: 'Gonad + Meso', Ac: 'Pax8', Marche: 'Oui', Supplier: 'Proteintech', Species: 'Rabbit', ID: '10336-1-AP', Dilution: 'null' },
+  { Sample: 'EH4020', Age: '6,1', Organ: 'Gonad + Meso', Ac: 'Sox9', Marche: 'Oui', Supplier: 'R&D System', Species: 'Goat', ID: 'AF3075', Dilution: 'null' },
+  { Sample: 'EH4170', Age: '6,1', Organ: 'Gonad', Ac: 'AMH', Marche: 'Non', Supplier: 'Abcam', Species: 'Mouse', ID: 'ab24542', Dilution: '(1:500)' },
+  { Sample: 'EH4170', Age: '6,1', Organ: 'Gonad', Ac: 'TSPAN8', Marche: 'Non', Supplier: 'Sigma', Species: 'Rabbit', ID: 'HPA044337', Dilution: 'null' },
+  { Sample: 'EH4170', Age: '6,1', Organ: 'Gonad', Ac: 'Sox9', Marche: 'Oui', Supplier: 'R&D System', Species: 'Goat', ID: 'AF3075', Dilution: 'null' },
+  { Sample: 'EH4099_1', Age: '6,1', Organ: 'Gonad + Meso', Ac: 'Pax8', Marche: 'Oui', Supplier: 'Proteintech', Species: 'Rabbit', ID: '10336-1-AP', Dilution: 'null' },
+  { Sample: 'EH4099_1', Age: '6,1', Organ: 'Gonad + Meso', Ac: 'Pax2', Marche: 'Oui', Supplier: 'R&D System', Species: 'Goat', ID: 'AF3364', Dilution: 'null' },
+  { Sample: 'EH4099_2', Age: '6,1', Organ: 'Gonad + Meso', Ac: 'Pax8', Marche: 'Oui', Supplier: 'Proteintech', Species: 'Rabbit', ID: '10336-1-AP', Dilution: 'null' },
+  { Sample: 'EH4099_2', Age: '6,1', Organ: 'Gonad + Meso', Ac: 'Pax2', Marche: 'Oui', Supplier: 'R&D System', Species: 'Goat', ID: 'AF3364', Dilution: 'null' },
+  { Sample: 'EH4380', Age: '6,3', Organ: 'Meso + Kidney', Ac: 'Pax8', Marche: 'Oui', Supplier: 'null', Species: 'null', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH4381', Age: '6,3', Organ: 'Meso + Kidney', Ac: 'Pax2', Marche: 'Oui', Supplier: 'null', Species: 'null', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH4382', Age: '6,3', Organ: 'Meso + Kidney', Ac: 'HNF4a', Marche: 'Oui', Supplier: 'null', Species: 'null', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH3372', Age: '6,4', Organ: 'Gonad + Meso', Ac: 'POU5F1', Marche: 'Oui', Supplier: 'Abcam', Species: 'Rabbit', ID: 'ab181557', Dilution: '(1:400)' },
+  { Sample: 'EH3372', Age: '6,4', Organ: 'Gonad + Meso', Ac: 'Sox9', Marche: 'Oui', Supplier: 'R&D System', Species: 'Goat', ID: 'AF3075', Dilution: '(1:400)' },
+  { Sample: 'EH3372', Age: '6,4', Organ: 'Gonad + Meso', Ac: 'COUPTFII', Marche: 'Oui', Supplier: 'Perseus Proteomics', Species: 'Mouse', ID: 'PP-H7147-00', Dilution: '(1:400)' },
+  { Sample: 'EH3731', Age: '6,4', Organ: 'Gonad', Ac: 'Pax8', Marche: 'Oui', Supplier: 'Proteintech', Species: 'Rabbit', ID: '10336-1-AP', Dilution: 'null' },
+  { Sample: 'EH3731', Age: '6,4', Organ: 'Gonad', Ac: 'Sox9', Marche: 'Oui', Supplier: 'R&D System', Species: 'Goat', ID: 'AF3075', Dilution: 'null' },
+  { Sample: 'EH3532', Age: '6,4', Organ: 'Meso', Ac: 'LHX1', Marche: 'Oui', Supplier: 'null', Species: 'Mouse', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH3532', Age: '6,4', Organ: 'Meso', Ac: 'Wnt1', Marche: 'Oui', Supplier: 'Abcam', Species: 'Rabbit', ID: 'ab89901', Dilution: 'null' },
+  { Sample: 'EH3532', Age: '6,4', Organ: 'Meso', Ac: 'Pax2', Marche: 'Oui', Supplier: 'R&D System', Species: 'Goat', ID: 'AF3364', Dilution: 'null' },
+  { Sample: 'EH3532', Age: '6,4', Organ: 'Meso', Ac: 'Pax8', Marche: 'Non', Supplier: 'null', Species: 'null', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH3532', Age: '6,4', Organ: 'Meso', Ac: 'HNF4a', Marche: 'Oui', Supplier: 'null', Species: 'null', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH3532', Age: '6,4', Organ: 'Meso', Ac: 'GATA3', Marche: 'Oui', Supplier: 'null', Species: 'null', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH2988', Age: '6,6', Organ: 'Gonad + Meso', Ac: 'Pax8', Marche: 'Oui', Supplier: 'null', Species: 'null', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH2988', Age: '6,6', Organ: 'Gonad + Meso', Ac: 'Sox9', Marche: 'Oui', Supplier: 'null', Species: 'null', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH2988', Age: '6,6', Organ: 'Gonad + Meso', Ac: 'GATA3', Marche: 'Oui', Supplier: 'null', Species: 'null', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH3717', Age: '6,6', Organ: 'Gonad', Ac: 'AMH', Marche: 'Oui', Supplier: 'Abcam', Species: 'Mouse', ID: 'ab24542', Dilution: '(1:500)' },
+  { Sample: 'EH3717', Age: '6,6', Organ: 'Gonad', Ac: 'TSPAN8', Marche: 'Oui', Supplier: 'Sigma', Species: 'Rabbit', ID: 'HPA044337', Dilution: 'null' },
+  { Sample: 'EH3717', Age: '6,6', Organ: 'Gonad', Ac: 'Sox9', Marche: 'Oui', Supplier: 'R&D System', Species: 'Goat', ID: 'AF3075', Dilution: 'null' },
+  { Sample: 'EH3723', Age: '6,6', Organ: 'Gonad', Ac: 'PLVAP', Marche: 'Oui', Supplier: 'Abcam', Species: 'Mouse', ID: 'ab81719', Dilution: 'null' },
+  { Sample: 'EH3723', Age: '6,6', Organ: 'Gonad', Ac: 'Sox9', Marche: 'Oui', Supplier: 'R&D System', Species: 'Goat', ID: 'AF3075', Dilution: 'null' },
+  { Sample: 'EH3723', Age: '6,6', Organ: 'Gonad', Ac: 'Lyve-1', Marche: 'Oui', Supplier: 'null', Species: 'null', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH3755', Age: '6,6', Organ: 'Gonad', Ac: 'COUPTFII', Marche: 'Oui', Supplier: 'Perseus Proteomics', Species: 'Mouse', ID: 'PP-H7147-00', Dilution: 'null' },
+  { Sample: 'EH3755', Age: '6,6', Organ: 'Gonad', Ac: 'Sox9', Marche: 'Oui', Supplier: 'R&D System', Species: 'Goat', ID: 'AF3075', Dilution: 'null' },
+  { Sample: 'EH3755', Age: '6,6', Organ: 'Gonad', Ac: 'Oct4/', Marche: 'Oui', Supplier: 'null', Species: 'Goat', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH3831', Age: '6,6', Organ: 'Gonad + Meso', Ac: 'Pax8', Marche: 'Non', Supplier: 'null', Species: 'null', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH3831', Age: '6,6', Organ: 'Gonad + Meso', Ac: 'Sox9', Marche: 'Oui', Supplier: 'null', Species: 'null', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH3831', Age: '6,6', Organ: 'Gonad + Meso', Ac: 'Oct4/', Marche: 'Oui', Supplier: 'null', Species: 'null', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH3838', Age: '6,6', Organ: 'Gonad + Meso + Kidney', Ac: 'Pax8', Marche: 'Oui', Supplier: 'null', Species: 'null', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH3838', Age: '6,6', Organ: 'Gonad + Meso + Kidney', Ac: 'Sox9', Marche: 'Oui', Supplier: 'null', Species: 'null', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH4098', Age: '6,6', Organ: 'Gonad + Meso + Kidney', Ac: 'Pax8', Marche: 'Oui', Supplier: 'null', Species: 'null', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH4098', Age: '6,6', Organ: 'Gonad + Meso + Kidney', Ac: 'Sox9', Marche: 'Oui', Supplier: 'null', Species: 'null', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH4098', Age: '6,6', Organ: 'Gonad + Meso + Kidney', Ac: 'Oct4/', Marche: 'Oui', Supplier: 'null', Species: 'null', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH3605', Age: '6,6', Organ: 'Gonad', Ac: 'Iba1', Marche: 'Oui', Supplier: 'Fujifilm', Species: 'Goat', ID: '011-27991-CAF113', Dilution: '(1:400)' },
+  { Sample: 'EH3605', Age: '6,6', Organ: 'Gonad', Ac: 'PLVAP', Marche: 'Non', Supplier: 'Abcam', Species: 'Mouse', ID: 'ab81719', Dilution: '(1:2000)' },
+  { Sample: 'EH3605', Age: '6,6', Organ: 'Gonad', Ac: 'B3Tubuline', Marche: 'Non', Supplier: 'Sigma-Aldrich', Species: 'Rabbit', ID: 'T2200', Dilution: '(1:2000)' },
+  { Sample: 'EH3605', Age: '6,6', Organ: 'Gonad', Ac: 'Iba1', Marche: 'Non', Supplier: 'Fujifilm', Species: 'Goat', ID: '011-27991-CAF113', Dilution: '(1:400)' },
+  { Sample: 'EH3590', Age: '6,7', Organ: 'Gonad', Ac: 'Iba1', Marche: 'Non', Supplier: 'Fujifilm', Species: 'Goat', ID: '011-27991-CAF113', Dilution: '(1:400)' },
+  { Sample: 'EH3590', Age: '6,7', Organ: 'Gonad', Ac: 'PLVAP', Marche: 'Oui', Supplier: 'Abcam', Species: 'Mouse', ID: 'ab81719', Dilution: 'null' },
+  { Sample: 'EH3590', Age: '6,7', Organ: 'Gonad', Ac: 'CD31', Marche: 'Oui', Supplier: 'null', Species: 'null', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH3590', Age: '6,7', Organ: 'Gonad', Ac: 'SMA', Marche: 'Non', Supplier: 'null', Species: 'null', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH3587', Age: '6,9', Organ: 'Gonad', Ac: 'PLVAP', Marche: 'Non', Supplier: 'Abcam', Species: 'Mouse', ID: 'ab81719', Dilution: 'null' },
+  { Sample: 'EH3587', Age: '6,9', Organ: 'Gonad', Ac: 'CD31', Marche: 'Oui', Supplier: 'null', Species: 'null', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH3587', Age: '6,9', Organ: 'Gonad', Ac: 'SMA', Marche: 'Oui', Supplier: 'null', Species: 'null', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH3017', Age: '6,9', Organ: 'Gonad', Ac: 'Sox9', Marche: 'Oui', Supplier: 'R&D System', Species: 'Goat', ID: 'AF3075', Dilution: 'null' },
+  { Sample: 'EH3081', Age: '6,9', Organ: 'Gonad', Ac: 'POU5F1', Marche: 'Oui', Supplier: 'Abcam', Species: 'Rabbit', ID: 'ab181557', Dilution: '(1:400)' },
+  { Sample: 'EH3081', Age: '6,9', Organ: 'Gonad', Ac: 'Sox9', Marche: 'Oui', Supplier: 'R&D System', Species: 'Goat', ID: 'AF3075', Dilution: '(1:400)' },
+  { Sample: 'EH3081', Age: '6,9', Organ: 'Gonad', Ac: 'COUPTFII', Marche: 'Oui', Supplier: 'Perseus Proteomics', Species: 'Mouse', ID: 'PP-H7147-00', Dilution: '(1:400)' },
+  { Sample: 'EH3667', Age: '6,9', Organ: 'Gonad', Ac: 'PLVAP', Marche: 'Oui', Supplier: 'Abcam', Species: 'Mouse', ID: 'ab81719', Dilution: 'null' },
+  { Sample: 'EH3667', Age: '6,9', Organ: 'Gonad', Ac: 'Wnt6', Marche: 'Oui', Supplier: 'null', Species: 'null', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH3667', Age: '6,9', Organ: 'Gonad', Ac: 'Sox9', Marche: 'Oui', Supplier: 'null', Species: 'null', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH3041', Age: '7', Organ: 'Gonad', Ac: 'AMH', Marche: 'Oui', Supplier: 'Abcam', Species: 'Mouse', ID: 'ab24542', Dilution: '(1:500)' },
+  { Sample: 'EH3041', Age: '7', Organ: 'Gonad', Ac: 'Sox9', Marche: 'Oui', Supplier: 'R&D System', Species: 'Goat', ID: 'AF3075', Dilution: 'null' },
+  { Sample: 'EH3097', Age: '7', Organ: 'Gonad + Meso', Ac: 'FoxL2', Marche: 'Oui', Supplier: 'null', Species: 'null', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH3097', Age: '7', Organ: 'Gonad + Meso', Ac: 'Sox9', Marche: 'Oui', Supplier: 'null', Species: 'null', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH3603', Age: '7', Organ: 'Gonad', Ac: 'CD31', Marche: 'Oui', Supplier: 'DSHB', Species: 'Armenian hamster', ID: '2H8', Dilution: '(1:1000)' },
+  { Sample: 'EH3603', Age: '7', Organ: 'Gonad', Ac: 'SMA', Marche: 'Oui', Supplier: 'Abcam', Species: 'Rabbit', ID: 'ab5694', Dilution: '(1:1000)' },
+  { Sample: 'EH3603', Age: '7', Organ: 'Gonad', Ac: 'PLVAP', Marche: 'Oui', Supplier: 'Abcam', Species: 'Mouse', ID: 'ab81719', Dilution: '(1:150)' },
+  { Sample: 'EH3603', Age: '7', Organ: 'Gonad', Ac: 'Sox9', Marche: 'Oui', Supplier: 'R&D System', Species: 'Goat', ID: 'AF3075', Dilution: '(1:500)' },
+  { Sample: 'EH3005', Age: '7,1', Organ: 'Gonad', Ac: 'Lin28', Marche: 'Oui', Supplier: 'R&D System', Species: 'Goat', ID: 'AF3757', Dilution: '(1:500)' },
+  { Sample: 'EH3005', Age: '7,1', Organ: 'Gonad', Ac: 'PRPH', Marche: 'Oui', Supplier: 'Millipore', Species: 'Mouse', ID: 'MAB1527', Dilution: '(1:500)' },
+  { Sample: 'EH3505', Age: '7,1', Organ: 'Gonad', Ac: 'POU5F1', Marche: 'Oui', Supplier: 'Abcam', Species: 'Rabbit', ID: 'ab181557', Dilution: '(1:500)' },
+  { Sample: 'EH3505', Age: '7,1', Organ: 'Gonad', Ac: 'Sox9', Marche: 'Oui', Supplier: 'R&D System', Species: 'Goat', ID: 'AF3075', Dilution: '(1:500)' },
+  { Sample: 'EH3045', Age: '7,3', Organ: 'Gonad', Ac: 'Insl3', Marche: 'Oui', Supplier: 'Sigma', Species: 'Rabbit', ID: 'A96525', Dilution: 'null' },
+  { Sample: 'EH3045', Age: '7,3', Organ: 'Gonad', Ac: 'CYP17A1', Marche: 'Oui', Supplier: 'Abcam', Species: 'Goat', ID: 'ab8019', Dilution: 'null' },
+  { Sample: 'EH3143', Age: '7,3', Organ: 'Gonad', Ac: 'Lin28', Marche: 'Oui', Supplier: 'Abcam', Species: 'Rabbit', ID: 'ab46020', Dilution: '(1:500)' },
+  { Sample: 'EH3143', Age: '7,3', Organ: 'Gonad', Ac: 'hVASA', Marche: 'Oui', Supplier: 'R&D System', Species: 'Goat', ID: 'AF2030', Dilution: '(1:500)' },
+  { Sample: 'EH3143', Age: '7,3', Organ: 'Gonad', Ac: 'Oct4/', Marche: 'Oui', Supplier: 'Santa Cruz', Species: 'Mouse', ID: 'SC5279', Dilution: '(1:200)' },
+  { Sample: 'EH3437', Age: '7,3', Organ: 'Gonad', Ac: 'COUPTFII', Marche: 'Oui', Supplier: 'Perseus Proteomics', Species: 'Mouse', ID: 'PP-H7147-00', Dilution: 'null' },
+  { Sample: 'EH3437', Age: '7,3', Organ: 'Gonad', Ac: 'Insl3', Marche: 'Oui', Supplier: 'Sigma', Species: 'Rabbit', ID: 'A96525', Dilution: 'null' },
+  { Sample: 'EH3437', Age: '7,3', Organ: 'Gonad', Ac: 'CYP17A1', Marche: 'Oui', Supplier: 'Abcam', Species: 'Goat', ID: 'ab8019', Dilution: 'null' },
+  { Sample: 'EH3573', Age: '7,3', Organ: 'Gonad + Meso', Ac: 'KI67', Marche: 'Oui', Supplier: 'BD Biosciences', Species: 'Mouse', ID: '550609', Dilution: 'null' },
+  { Sample: 'EH3573', Age: '7,3', Organ: 'Gonad + Meso', Ac: 'K19', Marche: 'Oui', Supplier: 'DSHB', Species: 'Rat', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH3126-2', Age: '7,3', Organ: 'Gonad', Ac: 'SMA', Marche: 'Oui', Supplier: 'null', Species: 'null', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH3126-2', Age: '7,3', Organ: 'Gonad', Ac: 'Pax8', Marche: 'Oui', Supplier: 'null', Species: 'null', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH2870', Age: '7,3', Organ: 'Gonad + Meso + Kidney + Tractus', Ac: 'PLVAP', Marche: 'Oui', Supplier: 'Abcam', Species: 'Mouse', ID: 'ab81719', Dilution: 'null' },
+  { Sample: 'EH2870', Age: '7,3', Organ: 'Gonad + Meso + Kidney + Tractus', Ac: 'B3Tubuline', Marche: 'Oui', Supplier: 'Sigma-Aldrich', Species: 'Rabbit', ID: 'T2200', Dilution: '(1:2000)' },
+  { Sample: 'EH2870', Age: '7,3', Organ: 'Gonad + Meso + Kidney + Tractus', Ac: 'Pax2', Marche: 'Oui', Supplier: 'R&D System', Species: 'Goat', ID: 'AF3364', Dilution: 'null' },
+  { Sample: 'EH3126-2', Age: '7,3', Organ: 'Gonad', Ac: 'Sox9', Marche: 'Oui', Supplier: 'null', Species: 'null', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH4090-M', Age: '7,4', Organ: 'Méso', Ac: 'HNF4a', Marche: 'Oui', Supplier: 'null', Species: 'Rabbit', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH4090-M', Age: '7,4', Organ: 'Méso', Ac: 'GATA3', Marche: 'Oui', Supplier: 'null', Species: 'Goat', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH4090-M', Age: '7,4', Organ: 'Méso', Ac: 'Jag1', Marche: 'Non', Supplier: 'null', Species: 'null', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH4090-T', Age: '7,4', Organ: 'Gonad', Ac: 'Insl3', Marche: 'Oui', Supplier: 'Sigma', Species: 'Rabbit', ID: 'A96525', Dilution: 'null' },
+  { Sample: 'EH4090-T', Age: '7,4', Organ: 'Gonad', Ac: 'CYP17A1', Marche: 'Oui', Supplier: 'Abcam', Species: 'Goat', ID: 'ab8019', Dilution: 'null' },
+  { Sample: 'EH4118', Age: '7,4', Organ: 'Gonad', Ac: 'Insl3', Marche: 'Non', Supplier: 'Sigma', Species: 'Rabbit', ID: 'A96525', Dilution: 'null' },
+  { Sample: 'EH4118', Age: '7,4', Organ: 'Gonad', Ac: 'CYP17A1', Marche: 'Non', Supplier: 'Abcam', Species: 'Goat', ID: 'ab8019', Dilution: 'null' },
+  { Sample: 'EH4090', Age: '7,4', Organ: 'Meso', Ac: 'HNF4a', Marche: 'Oui', Supplier: 'null', Species: 'Rabbit', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH4090', Age: '7,4', Organ: 'Meso', Ac: 'GATA3', Marche: 'Oui', Supplier: 'null', Species: 'Goat', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH4090', Age: '7,4', Organ: 'Meso', Ac: 'Jag1', Marche: 'Oui', Supplier: 'null', Species: 'null', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH3622', Age: '7,5', Organ: 'Gonad + Meso + Kidney', Ac: 'Pax8', Marche: 'Oui', Supplier: 'null', Species: 'null', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH3622', Age: '7,5', Organ: 'Gonad + Meso + Kidney', Ac: 'Sox9', Marche: 'Oui', Supplier: 'null', Species: 'null', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH3622', Age: '7,5', Organ: 'Gonad + Meso + Kidney', Ac: 'GATA3', Marche: 'Oui', Supplier: 'null', Species: 'null', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH3570', Age: '7,6', Organ: 'Meso', Ac: 'HUCD', Marche: 'Non', Supplier: 'null', Species: 'Mouse', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH3570', Age: '7,6', Organ: 'Meso', Ac: 'TH', Marche: 'Oui', Supplier: 'null', Species: 'Sh', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH3570', Age: '7,6', Organ: 'Meso', Ac: 'PHOX2B', Marche: 'Oui', Supplier: 'null', Species: 'Rabbit', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH3509', Age: '7,6', Organ: 'Gonad', Ac: 'COUPTFII', Marche: 'Oui', Supplier: 'null', Species: 'Mouse', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH3509', Age: '7,6', Organ: 'Gonad', Ac: 'Insl3', Marche: 'Oui', Supplier: 'Sigma', Species: 'Rabbit', ID: 'A96525', Dilution: 'null' },
+  { Sample: 'EH3509', Age: '7,6', Organ: 'Gonad', Ac: 'CYP17A1', Marche: 'Oui', Supplier: 'Abcam', Species: 'Goat', ID: 'ab8019', Dilution: 'null' },
+  { Sample: 'EH3570', Age: '7,6', Organ: 'Gonad', Ac: 'CD31', Marche: 'Oui', Supplier: 'Cell Signaling', Species: 'Mouse', ID: '3528S', Dilution: 'null' },
+  { Sample: 'EH3570', Age: '7,6', Organ: 'Gonad', Ac: 'TOPRO', Marche: 'Oui', Supplier: 'null', Species: 'null', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH3570', Age: '7,6', Organ: 'Gonad', Ac: 'Wf', Marche: 'Oui', Supplier: 'Dako', Species: 'Rabbit', ID: 'A0082', Dilution: 'null' },
+  { Sample: 'EH3579', Age: '7,6', Organ: 'Gonad', Ac: 'COUPTFII', Marche: 'Oui', Supplier: 'null', Species: 'Mouse', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH3579', Age: '7,6', Organ: 'Gonad', Ac: 'Insl3', Marche: 'Oui', Supplier: 'Sigma', Species: 'Rabbit', ID: 'A96525', Dilution: 'null' },
+  { Sample: 'EH3579', Age: '7,6', Organ: 'Gonad', Ac: 'CYP17A1', Marche: 'Oui', Supplier: 'Abcam', Species: 'Goat', ID: 'ab8019', Dilution: 'null' },
+  { Sample: 'EH4006', Age: '7,6', Organ: 'Gonad', Ac: 'Insl3', Marche: 'Oui', Supplier: 'Sigma', Species: 'Rabbit', ID: 'A96525', Dilution: 'null' },
+  { Sample: 'EH4006', Age: '7,6', Organ: 'Gonad', Ac: 'CYP17A1', Marche: 'Oui', Supplier: 'Abcam', Species: 'Goat', ID: 'ab8019', Dilution: 'null' },
+  { Sample: 'EH3456', Age: '7,7', Organ: 'Gonad', Ac: 'COUPTFII', Marche: 'Oui', Supplier: 'null', Species: 'Goat', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH3456', Age: '7,7', Organ: 'Gonad', Ac: 'Insl3', Marche: 'Oui', Supplier: 'Sigma', Species: 'Rabbit', ID: 'A96525', Dilution: 'null' },
+  { Sample: 'EH3456', Age: '7,7', Organ: 'Gonad', Ac: 'CYP17A1', Marche: 'Oui', Supplier: 'Abcam', Species: 'Goat', ID: 'ab8019', Dilution: 'null' },
+  { Sample: 'EH3674', Age: '7,7', Organ: 'Gonad', Ac: 'COUPTFII', Marche: 'Oui', Supplier: 'null', Species: 'Goat', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH3674', Age: '7,7', Organ: 'Gonad', Ac: 'Insl3', Marche: 'Oui', Supplier: 'Sigma', Species: 'Rabbit', ID: 'A96525', Dilution: 'null' },
+  { Sample: 'EH3674', Age: '7,7', Organ: 'Gonad', Ac: 'CYP17A1', Marche: 'Oui', Supplier: 'Abcam', Species: 'Goat', ID: 'ab8019', Dilution: 'null' },
+  { Sample: 'EH3154', Age: '7,7', Organ: 'Gonad', Ac: 'Oct4/', Marche: 'Oui', Supplier: 'null', Species: 'null', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH3154', Age: '7,7', Organ: 'Gonad', Ac: 'Sox9', Marche: 'Oui', Supplier: 'R&D System', Species: 'Goat', ID: 'AF3075', Dilution: '(1:400)' },
+  { Sample: 'EH3154', Age: '7,7', Organ: 'Gonad', Ac: 'COUPTFII', Marche: 'Oui', Supplier: 'Perseus Proteomics', Species: 'Mouse', ID: 'PP-H7147-00', Dilution: '(1:400)' },
+  { Sample: 'EH3007', Age: '7,7', Organ: 'Gonad + Meso', Ac: 'Insl3', Marche: 'Oui', Supplier: 'Sigma', Species: 'Rabbit', ID: 'A96525', Dilution: '(1:400)' },
+  { Sample: 'EH3007', Age: '7,7', Organ: 'Gonad + Meso', Ac: 'Sox9', Marche: 'Oui', Supplier: 'R&D System', Species: 'Goat', ID: 'AF3075', Dilution: '(1:400)' },
+  { Sample: 'EH3030', Age: '7,7', Organ: 'Gonad + Meso', Ac: 'CYP11A1', Marche: 'Oui', Supplier: 'Sigma-Aldrich', Species: 'Rabbit', ID: 'HPA016436', Dilution: '(1:400)' },
+  { Sample: 'EH3030', Age: '7,7', Organ: 'Gonad + Meso', Ac: 'Sox9', Marche: 'Oui', Supplier: 'R&D System', Species: 'Goat', ID: 'AF3075', Dilution: '(1:400)' },
+  { Sample: 'EH3758', Age: '7,7', Organ: 'Gonad + Meso', Ac: 'PLVAP', Marche: 'Oui', Supplier: 'Abcam', Species: 'Mouse', ID: 'ab81719', Dilution: 'null' },
+  { Sample: 'EH3758', Age: '7,7', Organ: 'Gonad + Meso', Ac: 'LYVE-1', Marche: 'Oui', Supplier: 'null', Species: 'null', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH3758', Age: '7,7', Organ: 'Gonad + Meso', Ac: 'Sox9', Marche: 'Oui', Supplier: 'null', Species: 'null', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH3761-1', Age: '7,7', Organ: 'Gonad', Ac: 'COUPTFII', Marche: 'Oui', Supplier: 'null', Species: 'Mouse', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH3761-1', Age: '7,7', Organ: 'Gonad', Ac: 'Sox9', Marche: 'Oui', Supplier: 'Millipore', Species: 'Rabbit', ID: 'ab5535', Dilution: 'null' },
+  { Sample: 'EH3761-1', Age: '7,7', Organ: 'Gonad', Ac: 'Oct4/', Marche: 'Oui', Supplier: 'null', Species: 'Goat', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH2845-1', Age: '7,9', Organ: 'Gonad', Ac: 'Insl3', Marche: 'Oui', Supplier: 'Sigma', Species: 'Rabbit', ID: 'A96525', Dilution: 'null' },
+  { Sample: 'EH2845-1', Age: '7,9', Organ: 'Gonad', Ac: 'CYP17A1', Marche: 'Oui', Supplier: 'null', Species: 'null', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH3508', Age: '7,9', Organ: 'Gonad', Ac: 'COUPTFII', Marche: 'Oui', Supplier: 'null', Species: 'Goat', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH3508', Age: '7,9', Organ: 'Gonad', Ac: 'Insl3', Marche: 'Oui', Supplier: 'Sigma', Species: 'Rabbit', ID: 'A96525', Dilution: 'null' },
+  { Sample: 'EH3508', Age: '7,9', Organ: 'Gonad', Ac: 'CYP17A1', Marche: 'Oui', Supplier: 'Abcam', Species: 'Goat', ID: 'ab8019', Dilution: 'null' },
+  { Sample: 'EH2845', Age: '7,9', Organ: 'Gonad', Ac: 'SMA', Marche: 'Oui', Supplier: 'Abcam', Species: 'Rabbit', ID: 'ab5694', Dilution: '(1:1000)' },
+  { Sample: 'EH2845', Age: '7,9', Organ: 'Gonad', Ac: 'PLVAP', Marche: 'Oui', Supplier: 'Abcam', Species: 'Mouse', ID: 'ab81719', Dilution: '(1:150)' },
+  { Sample: 'EH2845', Age: '7,9', Organ: 'Gonad', Ac: 'Sox9', Marche: 'Oui', Supplier: 'R&D System', Species: 'Goat', ID: 'AF3075', Dilution: '(1:500)' },
+  { Sample: 'EH3578', Age: '7,9', Organ: 'Gonad', Ac: 'CD31', Marche: 'Oui', Supplier: 'DSHB', Species: 'Armenian hamster', ID: '2H8', Dilution: '(1:1000)' },
+  { Sample: 'EH3578', Age: '7,9', Organ: 'Gonad', Ac: 'SMA', Marche: 'Oui', Supplier: 'Abcam', Species: 'Rabbit', ID: 'ab5694', Dilution: '(1:1000)' },
+  { Sample: 'EH3578', Age: '7,9', Organ: 'Gonad', Ac: 'PLVAP', Marche: 'Oui', Supplier: 'Abcam', Species: 'Mouse', ID: 'ab81719', Dilution: '(1:150)' },
+  { Sample: 'EH3578', Age: '7,9', Organ: 'Gonad', Ac: 'Sox9', Marche: 'Oui', Supplier: 'R&D System', Species: 'Goat', ID: 'AF3075', Dilution: '(1:500)' },
+  { Sample: 'EH3575', Age: '8,1', Organ: 'Gonad', Ac: 'SALL1', Marche: 'Oui', Supplier: 'Abcam', Species: 'Mouse', ID: 'ab1974', Dilution: 'null' },
+  { Sample: 'EH3575', Age: '8,1', Organ: 'Gonad', Ac: 'MafB', Marche: 'Oui', Supplier: 'Abcam', Species: 'Rabbit', ID: 'ab223744', Dilution: 'null' },
+  { Sample: 'EH3575', Age: '8,1', Organ: 'Gonad', Ac: 'Sox9', Marche: 'Oui', Supplier: 'R&D System', Species: 'Goat', ID: 'AF3075', Dilution: '(1:500)' },
+  { Sample: 'EH3586', Age: '8,4', Organ: 'Gonad', Ac: 'Oct4/', Marche: 'Oui', Supplier: 'null', Species: 'null', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH3591', Age: '8,5', Organ: 'Gonad', Ac: 'COUPTFII', Marche: 'Oui', Supplier: 'Perseus Proteomics', Species: 'Mouse', ID: 'PP-H7147-00', Dilution: '(1:500)' },
+  { Sample: 'EH3591', Age: '8,5', Organ: 'Gonad', Ac: 'Insl3', Marche: 'Oui', Supplier: 'Sigma', Species: 'Rabbit', ID: 'A96525', Dilution: '(1:400)' },
+  { Sample: 'EH3591', Age: '8,5', Organ: 'Gonad', Ac: 'Oct4/', Marche: 'Oui', Supplier: 'R&D System', Species: 'Goat', ID: 'AF1759', Dilution: '(1:500)' },
+  { Sample: 'AC3549', Age: '8,7', Organ: 'Gonad', Ac: 'Iba1', Marche: 'Non', Supplier: 'Fujifilm', Species: 'Goat', ID: '011-27991-CAF113', Dilution: '(1:400)' },
+  { Sample: 'AC3549', Age: '8,7', Organ: 'Gonad', Ac: 'PLVAP', Marche: 'Oui', Supplier: 'Abcam', Species: 'Mouse', ID: 'ab81719', Dilution: 'null' },
+  { Sample: 'AC3549', Age: '8,7', Organ: 'Gonad', Ac: 'CD31', Marche: 'Oui', Supplier: 'null', Species: 'null', ID: 'null', Dilution: 'null' },
+  { Sample: 'AC3549', Age: '8,7', Organ: 'Gonad', Ac: 'SMA', Marche: 'Oui', Supplier: 'null', Species: 'null', ID: 'null', Dilution: 'null' },
+  { Sample: 'AC374', Age: '8,7', Organ: 'Gonad', Ac: 'PLVAP', Marche: 'Oui', Supplier: 'Abcam', Species: 'Mouse', ID: 'ab81719', Dilution: '(1:200)' },
+  { Sample: 'AC374', Age: '8,7', Organ: 'Gonad', Ac: 'PLVAP', Marche: 'Oui', Supplier: 'Abcam', Species: 'Mouse', ID: 'ab81719', Dilution: '(1:200)' },
+  { Sample: 'AC374', Age: '8,7', Organ: 'Gonad', Ac: 'B3Tubuline', Marche: 'Oui', Supplier: 'Sigma-Aldrich', Species: 'Rabbit', ID: 'T2200', Dilution: '(1:2000)' },
+  { Sample: 'AC374', Age: '8,7', Organ: 'Gonad', Ac: 'Iba1', Marche: 'Oui', Supplier: 'Fujifilm', Species: 'Goat', ID: '011-27991-CAF113', Dilution: '(1:400)' },
+  { Sample: 'AC374', Age: '8,7', Organ: 'Gonad', Ac: 'PLVAP', Marche: 'Oui', Supplier: 'Abcam', Species: 'Mouse', ID: 'ab81719', Dilution: '(1:200)' },
+  { Sample: 'AC374', Age: '8,7', Organ: 'Gonad', Ac: 'B3Tubuline', Marche: 'Oui', Supplier: 'Sigma-Aldrich', Species: 'Rabbit', ID: 'T2200', Dilution: '(1:2000)' },
+  { Sample: 'AC374', Age: '8,7', Organ: 'Gonad', Ac: 'Iba1', Marche: 'Oui', Supplier: 'Fujifilm', Species: 'Goat', ID: '011-27991-CAF113', Dilution: '(1:400)' },
+  { Sample: 'EH3799-G', Age: '9,1', Organ: 'Meso', Ac: 'Pax8', Marche: 'Oui', Supplier: 'null', Species: 'null', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH3799-G', Age: '9,1', Organ: 'Meso', Ac: 'Sox9', Marche: 'Oui', Supplier: 'null', Species: 'null', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH3552', Age: '9,3', Organ: 'Gonad', Ac: 'COUPTFII', Marche: 'Oui', Supplier: 'Perseus Proteomics', Species: 'Mouse', ID: 'PP-H7147-00', Dilution: '(1:500)' },
+  { Sample: 'EH3552', Age: '9,3', Organ: 'Gonad', Ac: 'Insl3', Marche: 'Oui', Supplier: 'Sigma', Species: 'Rabbit', ID: 'A96525', Dilution: '(1:400)' },
+  { Sample: 'EH3552', Age: '9,3', Organ: 'Gonad', Ac: 'Oct4/', Marche: 'Oui', Supplier: 'R&D System', Species: 'Goat', ID: 'AF1759', Dilution: '(1:500)' },
+  { Sample: 'EH3596', Age: '9,4', Organ: 'Gonad', Ac: 'COUPTFII', Marche: 'Oui', Supplier: 'Perseus Proteomics', Species: 'Mouse', ID: 'PP-H7147-00', Dilution: '(1:500)' },
+  { Sample: 'EH3596', Age: '9,4', Organ: 'Gonad', Ac: 'Oct4/', Marche: 'Oui', Supplier: 'null', Species: 'null', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH3596', Age: '9,4', Organ: 'Gonad', Ac: 'Sox9', Marche: 'Oui', Supplier: 'R&D System', Species: 'Goat', ID: 'AF3075', Dilution: '(1:1000)' },
+  { Sample: 'EH3506', Age: '9,5', Organ: 'Gonad', Ac: 'COUPTFII', Marche: 'Oui', Supplier: 'Perseus Proteomics', Species: 'Mouse', ID: 'PP-H7147-00', Dilution: '(1:500)' },
+  { Sample: 'EH3506', Age: '9,5', Organ: 'Gonad', Ac: 'Oct4/', Marche: 'Oui', Supplier: 'null', Species: 'null', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH3506', Age: '9,5', Organ: 'Gonad', Ac: 'Sox9', Marche: 'Oui', Supplier: 'R&D System', Species: 'Goat', ID: 'AF3075', Dilution: '(1:1000)' },
+  { Sample: 'EH3836', Age: '9,7', Organ: 'Gonad', Ac: 'Pax8', Marche: 'Oui', Supplier: 'Proteintech', Species: 'Rabbit', ID: '10336-1-AP', Dilution: 'null' },
+  { Sample: 'EH3836', Age: '9,7', Organ: 'Gonad', Ac: 'Oct4/', Marche: 'Oui', Supplier: 'null', Species: 'Goat', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH3604', Age: '10', Organ: 'Gonad', Ac: 'CD31', Marche: 'Oui', Supplier: 'DSHB', Species: 'Armenian hamster', ID: '2H8', Dilution: '(1:1000)' },
+  { Sample: 'EH3604', Age: '10', Organ: 'Gonad', Ac: 'SMA', Marche: 'Oui', Supplier: 'Abcam', Species: 'Rabbit', ID: 'ab5684', Dilution: '(1:1000)' },
+  { Sample: 'EH3604', Age: '10', Organ: 'Gonad', Ac: 'PLVAP', Marche: 'Oui', Supplier: 'Abcam', Species: 'Mouse', ID: 'ab81719', Dilution: '(1:150)' },
+  { Sample: 'EH3604', Age: '10', Organ: 'Gonad', Ac: 'Sox9', Marche: 'Oui', Supplier: 'R&D System', Species: 'Goat', ID: 'AF3075', Dilution: '(1:500)' },
+  { Sample: 'EH3483', Age: '10,3', Organ: 'Gonad', Ac: 'Oct4/', Marche: 'Oui', Supplier: 'R&D System', Species: 'Goat', ID: 'AF1759', Dilution: '(1:500)' },
+  { Sample: 'EH3483', Age: '10,3', Organ: 'Gonad', Ac: 'COUPTFII', Marche: 'Oui', Supplier: 'Perseus Proteomics', Species: 'Mouse', ID: 'PP-H7147-00', Dilution: 'null' },
+  { Sample: 'EH3483', Age: '10,3', Organ: 'Gonad', Ac: 'Insl3', Marche: 'Oui', Supplier: 'Sigma', Species: 'Rabbit', ID: 'A96525', Dilution: '(1:400)' },
+  { Sample: 'EH3483', Age: '10,3', Organ: 'Gonad', Ac: 'Oct4/', Marche: 'Oui', Supplier: 'R&D System', Species: 'Goat', ID: 'AF1759', Dilution: '(1:500)' },
+  { Sample: 'EH3574', Age: '10,6', Organ: 'Gonad', Ac: 'COUPTFII', Marche: 'Oui', Supplier: 'Perseus Proteomics', Species: 'Mouse', ID: 'PP-H7147-00', Dilution: '(1:500)' },
+  { Sample: 'EH3574', Age: '10,6', Organ: 'Gonad', Ac: 'Oct4/', Marche: 'Oui', Supplier: 'null', Species: 'null', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH3574', Age: '10,6', Organ: 'Gonad', Ac: 'Sox9', Marche: 'Oui', Supplier: 'R&D System', Species: 'Goat', ID: 'AF3075', Dilution: '(1:1000)' },
+  { Sample: 'AC377-3', Age: '10,7', Organ: 'Gonad', Ac: 'PLVAP', Marche: 'Oui', Supplier: 'Abcam', Species: 'Mouse', ID: 'ab81719', Dilution: 'null' },
+  { Sample: 'AC377-3', Age: '10,7', Organ: 'Gonad', Ac: 'CD31', Marche: 'Oui', Supplier: 'null', Species: 'Rabbit', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH3504', Age: '11,3', Organ: 'Gonad', Ac: 'COUPTFII', Marche: 'Oui', Supplier: 'Perseus Proteomics', Species: 'Mouse', ID: 'PP-H7147-00', Dilution: '(1:500)' },
+  { Sample: 'EH3504', Age: '11,3', Organ: 'Gonad', Ac: 'Oct4/', Marche: 'Oui', Supplier: 'null', Species: 'null', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH3504', Age: '11,3', Organ: 'Gonad', Ac: 'Sox9', Marche: 'Oui', Supplier: 'R&D System', Species: 'Goat', ID: 'AF3075', Dilution: '(1:1000)' },
+  { Sample: 'EH4109', Age: '11,3', Organ: 'Gonad', Ac: 'Pax8', Marche: 'Oui', Supplier: 'Proteintech', Species: 'Rabbit', ID: '10336-1-AP', Dilution: 'null' },
+  { Sample: 'EH4109', Age: '11,3', Organ: 'Gonad', Ac: 'Oct4/', Marche: 'Oui', Supplier: 'null', Species: 'Goat', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH3752', Age: '11,4', Organ: 'Gonad', Ac: 'Pax8', Marche: 'Oui', Supplier: 'null', Species: 'null', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH3752', Age: '11,4', Organ: 'Gonad', Ac: 'Sox9', Marche: 'Oui', Supplier: 'null', Species: 'null', ID: 'null', Dilution: 'null' },
+  { Sample: 'AC369-LHS', Age: '11,7', Organ: 'Gonad', Ac: 'PLVAP', Marche: 'Oui', Supplier: 'Abcam', Species: 'Mouse', ID: 'ab81719', Dilution: '(1:250)' },
+  { Sample: 'AC369-LHS', Age: '11,7', Organ: 'Gonad', Ac: 'B3Tubuline', Marche: 'Oui', Supplier: 'Sigma-Aldrich', Species: 'Rabbit', ID: 'T2200', Dilution: '(1:2000)' },
+  { Sample: 'AC369-LHS', Age: '11,7', Organ: 'Gonad', Ac: 'Oct4/', Marche: 'Non', Supplier: 'R&D System', Species: 'Goat', ID: 'AF1759', Dilution: '(1:500)' },
+  { Sample: 'AC369-RHS', Age: '11,7', Organ: 'Gonad', Ac: 'PLVAP', Marche: 'Oui', Supplier: 'Abcam', Species: 'Mouse', ID: 'ab81719', Dilution: '(1:250)' },
+  { Sample: 'AC369-RHS', Age: '11,7', Organ: 'Gonad', Ac: 'B3Tubuline', Marche: 'Oui', Supplier: 'Sigma-Aldrich', Species: 'Rabbit', ID: 'T2200', Dilution: '(1:2000)' },
+  { Sample: 'AC369-RHS', Age: '11,7', Organ: 'Gonad', Ac: 'Oct4/', Marche: 'Oui', Supplier: 'R&D System', Species: 'Goat', ID: 'AF1759', Dilution: '(1:500)' },
+  { Sample: 'EH4115', Age: '11,7', Organ: 'Gonad', Ac: 'Pax8', Marche: 'Oui', Supplier: 'Proteintech', Species: 'Rabbit', ID: '10336-1-AP', Dilution: 'null' },
+  { Sample: 'EH4115', Age: '11,7', Organ: 'Gonad', Ac: 'Oct4/', Marche: 'Oui', Supplier: 'null', Species: 'Goat', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH3524', Age: '12', Organ: 'Gonad', Ac: 'CD31', Marche: 'Oui', Supplier: 'DSHB', Species: 'Armenian hamster', ID: '2H8', Dilution: '(1:1000)' },
+  { Sample: 'EH3524', Age: '12', Organ: 'Gonad', Ac: 'PLVAP', Marche: 'Oui', Supplier: 'Abcam', Species: 'Mouse', ID: 'ab81719', Dilution: '(1:150)' },
+  { Sample: 'EH3524', Age: '12', Organ: 'Gonad', Ac: 'Sox9', Marche: 'Oui', Supplier: 'R&D System', Species: 'Goat', ID: 'AF3075', Dilution: '(1:500)' },
+  { Sample: 'EH3524', Age: '12', Organ: 'Gonad', Ac: 'SMA', Marche: 'Oui', Supplier: 'Abcam', Species: 'Rabbit', ID: 'ab5694', Dilution: '(1:1000)' },
+  { Sample: 'EH3621', Age: '12', Organ: 'Gonad', Ac: 'Sox9', Marche: 'Oui', Supplier: 'null', Species: 'null', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH3651', Age: '12', Organ: 'Gonad', Ac: 'Pax8', Marche: 'Non', Supplier: 'null', Species: 'null', ID: 'null', Dilution: 'null' },
+  { Sample: 'EH3651', Age: '12', Organ: 'Gonad', Ac: 'Sox9', Marche: 'Non', Supplier: 'null', Species: 'null', ID: 'null', Dilution: 'null' },
+  { Sample: 'PM66', Age: 'Adulte', Organ: 'Gonad', Ac: 'AMH', Marche: 'Oui', Supplier: 'Abcam', Species: 'Mouse', ID: 'ab24542', Dilution: '(1:500)' },
+  { Sample: 'PM66', Age: 'Adulte', Organ: 'Gonad', Ac: 'DMRT1', Marche: 'Oui', Supplier: 'null', Species: 'Rabbit', ID: 'null', Dilution: 'null' },
+  { Sample: 'PM66', Age: 'Adulte', Organ: 'Gonad', Ac: 'Sox9', Marche: 'Oui', Supplier: 'R&D System', Species: 'Goat', ID: 'AF3075', Dilution: 'null' }
+];
 
 
         // Crée une structure pivotée des données (anticorps par âge)
@@ -902,7 +1161,8 @@
         });
         // Liste des anticorps et des âges
         const acList = Object.keys(pivot);
-        const ageList = [...new Set(data.map(d => d.Age))];
+        const ageList = Array.from(new Set(data.map(d => d.Age)));
+
         // Fonction pour calculer le nombre de combinaisons (anticorps multiples pour un échantillon à un âge donné)
         const countCombos = (ac) => {
             const uniqueAges = Object.keys(pivot[ac]);
@@ -910,7 +1170,8 @@
             uniqueAges.forEach(age => {
                 const samples = Array.from(pivot[ac][age]);
                 samples.forEach(sample => {
-                    const acsForSample = data.filter(d => d.Sample === sample && d.Age === age);
+                    const acsForSample = data.filter(d => d.Sample === sample && d.Age?.replace('.', ',') === age
+);
                     if (acsForSample.length > 1) comboCount++;
                 });
             });
@@ -923,7 +1184,9 @@
             uniqueAges.forEach(age => {
                 const samples = Array.from(pivot[ac][age]);
                 samples.forEach(sample => {
-                    const acsForSample = data.filter(d => d.Sample === sample && d.Age === age);
+                    const acsForSample = data.filter(d => d.Sample === sample && d.Age?.replace('.', ',') === age);
+
+
                     acsForSample.forEach(d => {
                         if (d.Ac !== ac) {
                             associatedAcs.add(d.Ac);
@@ -934,46 +1197,113 @@
             return Array.from(associatedAcs).join(', ');
         };
         // Créer le tableau
-        const tbody = document.getElementById('table-body');
-        acList.forEach(ac => {
-            const row = document.createElement("tr");
-            const comboCount = countCombos(ac);
-            const associatedAcs = getAssociatedAc(ac);
-            row.innerHTML = `<td class="acClick">${ac} (${comboCount} combinaison${comboCount !== 1 ? 's' : ''})` +
-                `<div class="tooltip">Combinations: ${associatedAcs}</div></td>` +
-                ageList.map(age => {
-                    const count = pivot[ac]?.[age]?.size || 0;
-                    const cellClass = count > 0 ? 'has-value count-cell' : '';
-                    return `<td class="${cellClass}" data-ac="${ac}" data-age="${age}">${count}</td>`;
-                }).join("");
-            document.querySelectorAll('.count-cell').forEach(cell => {
-                cell.addEventListener('click', function () {
-                    const ac = this.getAttribute('data-ac');
-                    const age = this.getAttribute('data-age');
-                    displayCombinations(ac, age);
-                });
-            });
-            tbody.appendChild(row);
-        });
+// Créer le tableau
+const tbody = document.getElementById('table-body');
+acList.forEach(ac => {
+    const row = document.createElement("tr");
+    const comboCount = countCombos(ac);
+    const associatedAcs = getAssociatedAc(ac);
+    row.innerHTML = `<td class="acClick">${ac} (${comboCount} combinaison${comboCount !== 1 ? 's' : ''})` +
+        `<div class="tooltip">Combinations: ${associatedAcs}</div></td>` +
+        ageList.map(age => {
+            const count = pivot[ac]?.[age]?.size || 0;
+            const cellClass = count > 0 ? 'has-value count-cell' : '';
+            return `<td class="${cellClass}" data-ac="${ac}" data-age="${age}">${count}</td>`;
+        }).join("");
+    tbody.appendChild(row);
+    // 🔁 Ajouter les écouteurs de clic à chaque cellule avec un chiffre
+row.querySelectorAll('.count-cell').forEach(cell => {
+cell.addEventListener('click', function () {
+    const ac = this.getAttribute('data-ac');
+    const age = this.getAttribute('data-age')?.replace('.', ',');
+
+    displayCombinations(ac, age);
+    document.getElementById('modal').style.display = 'block';
+
+    // 🔧 Met à jour le bouton "Show ..."
+    const viewImageBtn = document.getElementById("view-image-btn");
+    viewImageBtn.innerText = `Show ${ac}`;
+    viewImageBtn.style.display = "inline-block";
+    viewImageBtn.onclick = function () {
+        const popupImage = document.getElementById("popup-image");
+        const imageOverlay = document.getElementById("image-overlay");
+        popupImage.src = `${ac}.png`;
+        popupImage.alt = `Image pour ${ac}`;
+        imageOverlay.style.display = "flex";
+    };
+});
+
+});
+
+});
+
+
         // Fonction pour afficher les combinaisons dans la modale
-        const displayCombinations = (ac, age) => {
+        const displayCombinations = (ac, age = null) => {
+            if (age) age = age.replace('.', ','); // ⚠️ pour normaliser partoutd.Age === age
+
             const comboBody = document.getElementById('modal-combination-body');
             comboBody.innerHTML = '';
             if (age) {
                 const samples = Array.from(pivot[ac][age] || []);
-                samples.forEach(sample => {
-                    const acsForSample = data.filter(d => d.Sample === sample && d.Age === age);
-                    const combos = acsForSample.map(d => {
-                        const marcheStatus = d.Marche;
-                        const acName = d.Ac;
-                        const acStyled = `<span class="${marcheStatus === 'Oui' ? 'marched-oui' : 'marched-non'}">${acName}</span>`;
-                        return acStyled;
-                    }).join(', ');
-                    const row = document.createElement("tr");
-                    row.dataset.comboCount = acsForSample.length.toString();
-                    row.innerHTML = `<td>${combos}</td><td>${sample}</td><td>${age}</td><td>${acsForSample[0]?.Organ}</td>`;
-                    comboBody.appendChild(row);
-                });
+samples.forEach(sample => {
+    const acsForSample = data.filter(d => d.Sample === sample && d.Age?.replace('.', ',') === age);
+
+    const combos = acsForSample.map(d => {
+        const marcheStatus = d.Marche;
+        const acName = d.Ac;
+        const acStyled = `<span class="${marcheStatus === 'Oui' ? 'marched-oui' : 'marched-non'}">${acName}</span>`;
+        return acStyled;
+    }).join(', ');
+
+    const row = document.createElement("tr");
+    row.dataset.comboCount = acsForSample.length.toString();
+    row.innerHTML = `<td>${combos}</td><td>${sample}</td><td>${age}</td><td>${acsForSample[0]?.Organ}</td>`;
+
+    row.addEventListener('click', () => {
+        const existingDetail = row.nextSibling;
+        if (existingDetail && existingDetail.classList?.contains('detail-row')) {
+            existingDetail.remove();
+            return;
+        }
+
+        // 🛠️ Correction ici aussi : filtre ac + age + sample
+        const details = data.filter(d => d.Sample === sample && d.Age?.replace('.', ',') === age);
+        const detailRow = document.createElement("tr");
+        detailRow.classList.add("detail-row");
+        detailRow.innerHTML = `
+            <td colspan="4">
+                <table style="width:100%; margin-top:10px; border:1px solid #ccc;">
+                    <thead>
+                        <tr>
+                            <th>Anticorps</th>
+                            <th>Supplier</th>
+                            <th>Species</th>
+                            <th>ID</th>
+                            <th>Dilution</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${details.map(d => `
+                            <tr>
+                                <td>${d.Ac}</td>
+                                <td>${d.Supplier || ''}</td>
+                                <td>${d.Species || ''}</td>
+                                <td>${d.ID || ''}</td>
+                                <td>${d.Dilution || ''}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            </td>
+        `;
+        row.parentNode.insertBefore(detailRow, row.nextSibling);
+    });
+
+    comboBody.appendChild(row);
+});
+
+
             } else {
                 const uniqueAges = Object.keys(pivot[ac]).sort((a, b) => {
                     const parse = (val) => parseFloat(val.replace(',', '.'));
@@ -982,17 +1312,79 @@
                 uniqueAges.forEach(age => {
                     const samples = Array.from(pivot[ac][age]);
                     samples.forEach(sample => {
-                        const acsForSample = data.filter(d => d.Sample === sample && d.Age === age);
+                        const acsForSample = data.filter(d => d.Sample === sample && d.Age?.replace('.', ',') === age
+);
                         const combos = acsForSample.map(d => {
                             const marcheStatus = d.Marche;
                             const acName = d.Ac;
                             const acStyled = `<span class="${marcheStatus === 'Oui' ? 'marched-oui' : 'marched-non'}">${acName}</span>`;
                             return acStyled;
                         }).join(', ');
-                        const row = document.createElement("tr");
-                        row.dataset.comboCount = acsForSample.length.toString();
-                        row.innerHTML = `<td>${combos}</td><td>${sample}</td><td>${age}</td><td>${acsForSample[0]?.Organ}</td>`;
-                        comboBody.appendChild(row);
+const row = document.createElement("tr");
+row.innerHTML = `<td>${combos}</td><td>${sample}</td><td>${age}</td><td>${acsForSample[0]?.Organ}</td>`;
+
+row.addEventListener('click', () => {
+    const existingDetail = row.nextSibling;
+    if (existingDetail && existingDetail.classList?.contains('detail-row')) {
+        existingDetail.remove();
+        return;
+    }
+
+    const detailRow = document.createElement("tr");
+    detailRow.classList.add("detail-row");
+    detailRow.innerHTML = `
+        <td colspan="4">
+            <table style="width:100%; margin-top:10px; border:1px solid #ccc;">
+                <thead>
+                    <tr>
+                        <th>Anticorps</th>
+                        <th>Supplier</th>
+                        <th>Species</th>
+                        <th>ID</th>
+                        <th>Dilution</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${acsForSample.map(d => `
+                        <tr>
+                            <td>${d.Ac}</td>
+                            <td>${d.Supplier || ''}</td>
+                            <td>${d.Species || ''}</td>
+                            <td>${d.ID || ''}</td>
+                            <td>${d.Dilution || ''}</td>
+                        </tr>
+                    `).join('')}
+                </tbody>
+            </table>
+        </td>
+    `;
+    row.parentNode.insertBefore(detailRow, row.nextSibling);
+});
+
+document.querySelectorAll('.count-cell').forEach(cell => {
+cell.addEventListener('click', function () {
+    const ac = this.getAttribute('data-ac');
+    const age = this.getAttribute('data-age')?.replace('.', ',');
+
+    displayCombinations(ac, age);
+    document.getElementById('modal').style.display = 'block';
+
+    // 🔧 Mise à jour du bouton "Show ..."
+    const viewImageBtn = document.getElementById("view-image-btn");
+    viewImageBtn.innerText = `Show ${ac}`;
+    viewImageBtn.style.display = "inline-block";
+    viewImageBtn.onclick = function () {
+        const popupImage = document.getElementById("popup-image");
+        const imageOverlay = document.getElementById("image-overlay");
+        popupImage.src = `${ac}.png`;
+        popupImage.alt = `Image pour ${ac}`;
+        imageOverlay.style.display = "flex";
+    };
+});
+
+});
+comboBody.appendChild(row);
+
                     });
                 });
             }
@@ -1038,24 +1430,12 @@
             document.getElementById('blur-overlay').style.display = 'block';
         };
         // Ajout d'un gestionnaire de clics sur les anticorps
-        document.querySelectorAll('.acClick').forEach(cell => {
-            cell.addEventListener('click', function () {
-                const ac = this.innerText.split(' ')[0];
-                displayCombinations(ac);
-            });
-        });
 
-
-
-
-
-
-
-
-
-
-
-
+document.getElementById("image-overlay").addEventListener("click", (e) => {
+    if (e.target.id === "image-overlay") {
+        e.currentTarget.style.display = "none";
+    }
+});
 
         // Fonction pour calculer et afficher les statistiques
         const displayStatistics = () => {
@@ -1127,9 +1507,8 @@
 
         // Initialiser les listes déroulantes
         const initSelects = () => {
-            const allAcs = [...new Set(data.map(d => d.Ac))];
+            const allAcs = Array.from(new Set(data.map(d => d.Ac)));
             populateSelect('ac1', allAcs);
-
             document.getElementById('ac1').addEventListener('change', () => updateSelects(1));
             document.getElementById('ac2').addEventListener('change', () => updateSelects(2));
             document.getElementById('ac3').addEventListener('change', () => updateSelects(3));
@@ -1176,7 +1555,15 @@
                 if (!acc[key]) {
                     acc[key] = { Sample: sample.Sample, Age: sample.Age, Organ: sample.Organ, Acs: [] };
                 }
-                acc[key].Acs.push({ Ac: sample.Ac, Marche: sample.Marche });
+                acc[key].Acs.push({
+  Ac: sample.Ac,
+  Marche: sample.Marche,
+  Supplier: sample.Supplier,
+  Species: sample.Species,
+  ID: sample.ID,
+  Dilution: sample.Dilution
+});
+
                 return acc;
             }, {});
 
@@ -1188,18 +1575,62 @@
             });
 
             const resultBody = document.getElementById('result-body');
-            resultBody.innerHTML = sortedCombinedSamples
-                .filter(item => selectedAcs.every(ac => item.Acs.some(a => a.Ac === ac)))
-                .map(item => `
-                                                                    <tr>
-                                                                        <td>${item.Sample}</td>
-                                                                        <td>${item.Age}</td>
-                                                                        <td>${item.Organ}</td>
-                                                                        <td>${item.Acs.map(a =>
-                    `<span class="${a.Marche === 'Oui' ? 'marched-oui' : 'marched-non'}">${a.Ac}</span>`
-                ).join(', ')}</td>
-                                                                    </tr>
-                                                                `).join('');
+resultBody.innerHTML = '';
+
+sortedCombinedSamples
+    .filter(item => selectedAcs.every(ac => item.Acs.some(a => a.Ac === ac)))
+    .forEach(item => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td>${item.Sample}</td>
+            <td>${item.Age}</td>
+            <td>${item.Organ}</td>
+            <td>${item.Acs.map(a =>
+                `<span class="${a.Marche === 'Oui' ? 'marched-oui' : 'marched-non'}">${a.Ac}</span>`
+            ).join(', ')}</td>
+        `;
+
+        tr.addEventListener('click', () => {
+            const existingDetail = tr.nextSibling;
+            if (existingDetail && existingDetail.classList?.contains('detail-row')) {
+                existingDetail.remove();
+                return;
+            }
+
+            const detailTr = document.createElement('tr');
+            detailTr.classList.add('detail-row');
+            detailTr.innerHTML = `
+                <td colspan="4">
+                    <table style="width:100%; margin-top:10px; border:1px solid #ccc;">
+                        <thead>
+                            <tr>
+                                <th>Anticorps</th>
+                                <th>Supplier</th>
+                                <th>Species</th>
+                                <th>ID</th>
+                                <th>Dilution</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${item.Acs.map(d => `
+                                <tr>
+                                    <td>${d.Ac}</td>
+                                    <td>${d.Supplier || ''}</td>
+                                    <td>${d.Species || ''}</td>
+                                    <td>${d.ID || ''}</td>
+                                    <td>${d.Dilution || ''}</td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                </td>
+            `;
+            tr.parentNode.insertBefore(detailTr, tr.nextSibling);
+        });
+
+        resultBody.appendChild(tr);
+    });
+
         };
 
 
@@ -1216,6 +1647,205 @@
                 }
             });
         });
+
+        
+const markerCategories = {
+    neuronal: ['HUCD', 'PHOX2B', 'B3Tubuline', 'TH', 'Iba1', 'PRPH'],
+    muscular: ['SMA'],
+    vascular: ['CD31', 'PLVAP', 'LYVE-1', 'Lyve-1'],
+    sertoli: ['Sox9', 'AMH', 'DMRT1'],
+    leydig: ['Insl3', 'CYP17A1', 'CYP11A1'],
+    germinal: ['Oct4/', 'POU5F1', 'Lin28', 'hVASA', 'SALL1', 'TSPAN8'],
+    other: [] // On remplira ça automatiquement
+};
+
+// Construire les "autres" anticorps non classés
+const allMarkers = [...new Set(data.map(d => d.Ac))];
+const categorized = Object.values(markerCategories).flat();
+markerCategories.other = allMarkers.filter(ac => !categorized.includes(ac));
+
+// Fonction de filtrage par catégorie
+const filterByCategory = (category) => {
+    const tableRows = document.querySelectorAll('#table-body tr');
+
+    tableRows.forEach(row => {
+        const acCell = row.querySelector('td');
+        if (!acCell) return;
+
+        const acName = acCell.textContent.trim().split(' (')[0]; // get marker name
+
+        // Si la catégorie est "all" ou que le marqueur appartient à la catégorie
+        const isMatch = category === 'all' || markerCategories[category]?.includes(acName);
+
+        row.style.display = isMatch ? '' : 'none';
+    });
+};
+
+
+// Événement sur le filtre de catégorie
+document.getElementById('category-filter').addEventListener('change', function () {
+    filterByCategory(this.value);
+});
+
+// Fonction d'affichage des résultats selon les anticorps sélectionnés
+function showSamples() {
+    const selected = [ac1.value, ac2.value, ac3.value, ac4.value].filter(x => x);
+    const resultBody = document.getElementById("result-body");
+    resultBody.innerHTML = '';
+
+    const grouped = d3.group(data, d => d.Sample);
+    
+    for (const [sample, rows] of grouped.entries()) {
+        const antibodiesInSample = rows.map(d => d.Ac);
+        if (selected.every(sel => antibodiesInSample.includes(sel))) {
+            const tr = document.createElement('tr');
+            const firstMatch = rows.find(d => d.Ac === selected[0]); // pour âge/organe
+
+            tr.innerHTML = `
+                <td>${sample}</td>
+                <td>${firstMatch?.Age || ''}</td>
+                <td>${firstMatch?.Organ || ''}</td>
+                <td>${selected.join(', ')}</td>
+            `;
+
+            tr.addEventListener('click', () => {
+                // Fermer s’il est déjà ouvert
+                const existingDetail = tr.nextSibling;
+                if (existingDetail && existingDetail.classList?.contains('detail-row')) {
+                    existingDetail.remove();
+                    return;
+                }
+
+                // Trouver tous les anticorps correspondants
+                const acsForSample = rows.filter(d => selected.includes(d.Ac));
+
+
+
+                const detailTr = document.createElement('tr');
+                detailTr.classList.add('detail-row');
+                detailTr.innerHTML = `
+                    <td colspan="4">
+                        <table style="width:100%; margin-top:10px; border:1px solid #ccc;">
+                            <thead>
+                                <tr>
+                                    <th>Anticorps</th>
+                                    <th>Supplier</th>
+                                    <th>Species</th>
+                                    <th>ID</th>
+                                    <th>Dilution</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${acsForSample.map(d => `
+                                    <tr>
+                                        <td>${d.Ac}</td>
+                                        <td>${d.Supplier || ''}</td>
+                                        <td>${d.Species || ''}</td>
+                                        <td>${d.ID || ''}</td>
+                                        <td>${d.Dilution || ''}</td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </td>
+                `;
+                tr.parentNode.insertBefore(detailTr, tr.nextSibling);
+            });
+
+            resultBody.appendChild(tr);
+        }
+    }
+}
+
+
+
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const viewImageBtn = document.getElementById("view-image-btn");
+    const imageOverlay = document.getElementById("image-overlay");
+    const popupImage = document.getElementById("popup-image");
+    const closeImage = document.getElementById("close-image");
+    const confidence = computeConfidenceIndex(data);
+
+    // Lorsqu'un anticorps est cliqué
+document.getElementById('table-body').addEventListener('click', function (e) {
+    const row = e.target.closest('tr');
+    if (!row || e.target.classList.contains('count-cell')) return;
+
+    const firstCell = row.querySelector('td');
+    if (!firstCell) return;
+
+    const ac = firstCell.innerText.split(' ')[0];
+    displayCombinations(ac);
+
+    const viewImageBtn = document.getElementById("view-image-btn");
+    viewImageBtn.innerText = `Show ${ac}`;
+    viewImageBtn.style.display = "inline-block";
+    viewImageBtn.onclick = function () {
+        popupImage.src = `${ac}.png`;
+        popupImage.alt = `Image pour ${ac}`;
+        imageOverlay.style.display = "flex";
+    };
+});
+
+
+
+    // Fermer avec la croix
+    closeImage.addEventListener("click", function () {
+        imageOverlay.style.display = "none";
+        popupImage.src = "";
+    });
+
+    // Fermer si clic en dehors de la boîte image
+    imageOverlay.addEventListener("click", function (e) {
+        if (e.target === imageOverlay) {
+            imageOverlay.style.display = "none";
+            popupImage.src = "";
+        }
+    });
+});
+initSelects();
+
+
+
+function computeConfidenceIndex(data) {
+  const antibodyMap = {};
+
+  // Regrouper par anticorps
+  data.forEach(item => {
+    if (!antibodyMap[item.Ac]) antibodyMap[item.Ac] = [];
+    antibodyMap[item.Ac].push(item);
+  });
+
+  let totalConfidence = 0;
+  let counted = 0;
+
+  for (const ac in antibodyMap) {
+    const entries = antibodyMap[ac];
+    const total = entries.length;
+    const successCount = entries.filter(e => e.Marche === "Oui").length;
+
+    const suppliers = new Set(entries.map(e => e.Supplier).filter(s => s && s !== "null"));
+    const variability = suppliers.size;
+
+    const successRate = successCount / total;
+    const stability = 1 - Math.min(variability / total, 1); // borné entre 0 et 1
+
+    const confidence = (successRate * 0.7 + stability * 0.3) * 100;
+    totalConfidence += confidence;
+    counted++;
+  }
+
+  const avgConfidence = counted > 0 ? Math.round(totalConfidence / counted) : 0;
+  return avgConfidence;
+}
+
+
+document.getElementById("theme-toggle").addEventListener("change", function () {
+  document.body.classList.toggle("dark-mode");
+});
 
 
 
