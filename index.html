@@ -472,6 +472,14 @@
     background-color: #f9f9f9;
 }
 
+#animated-title {
+  font-size: 28px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+
 #image-overlay {
     position: fixed;
     top: 0;
@@ -639,6 +647,19 @@ body.dark-mode .has-value {
 #contact-button:hover {
   background-color: #5a6f8f;
 }
+#loading-message {
+  font-size: 12px;
+  color: #888;
+  text-align: center;
+  animation: blink 1.6s infinite;
+  margin-top: 5px;
+}
+
+@keyframes blink {
+  0%   { opacity: 1; }
+  50%  { opacity: 0.3; }
+  100% { opacity: 1; }
+}
 
 
 
@@ -662,7 +683,10 @@ body.dark-mode .has-value {
             <img src="Design sans titre.png" alt="Logo 1">
             <img src="IV.png" alt="Logo 2">
         </div>
-        <h1>Database of Human Embryonic Testes Processed by Immuno-3D</h1>
+        <h1 id="animated-title"></h1>
+<p id="loading-message">Loading, please wait</p>
+
+
 
 
         <!-- Bouton -->
@@ -1846,6 +1870,37 @@ function computeConfidenceIndex(data) {
 document.getElementById("theme-toggle").addEventListener("change", function () {
   document.body.classList.toggle("dark-mode");
 });
+
+window.addEventListener("load", () => {
+  const title = "Database of Human Embryonic Testes Processed by Immuno-3D";
+  const container = document.getElementById("animated-title");
+  const loadingMsg = document.getElementById("loading-message");
+
+  // Crée un <span> pour chaque lettre
+  const spans = [];
+  title.split("").forEach(char => {
+    const span = document.createElement("span");
+    span.textContent = char;
+    span.style.opacity = 0.2;
+    span.style.transition = "color 0.4s, opacity 0.4s";
+    container.appendChild(span);
+    spans.push(span);
+  });
+
+  // Anime les lettres une par une
+  spans.forEach((span, index) => {
+    setTimeout(() => {
+      span.style.color = "#748CAB";
+      span.style.opacity = 1;
+
+      // Dernière lettre → cacher le message
+      if (index === spans.length - 1) {
+        loadingMsg.style.display = "none";
+      }
+    }, index * 40);
+  });
+});
+
 
 
 
