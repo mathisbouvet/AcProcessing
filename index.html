@@ -1871,35 +1871,67 @@ document.getElementById("theme-toggle").addEventListener("change", function () {
   document.body.classList.toggle("dark-mode");
 });
 
-window.addEventListener("load", () => {
-  const title = "Database of Human Embryonic Testes Processed by Immuno-3D";
-  const container = document.getElementById("animated-title");
-  const loadingMsg = document.getElementById("loading-message");
+window.addEventListener("DOMContentLoaded", () => {
+  const titleText = "Database of Human Embryonic Testes Processed by Immuno-3D";
+  const titleContainer = document.getElementById("animated-title");
+  const loadingMessage = document.getElementById("loading-message");
+  const images = Array.from(document.images);
+  const totalImages = images.length;
+  let loadedImages = 0;
 
-  // Crée un <span> pour chaque lettre
-  const spans = [];
-  title.split("").forEach(char => {
+  // Crée un <span> par lettre dans le titre
+  const spans = titleText.split("").map(char => {
     const span = document.createElement("span");
     span.textContent = char;
     span.style.opacity = 0.2;
-    span.style.transition = "color 0.4s, opacity 0.4s";
-    container.appendChild(span);
-    spans.push(span);
+    span.style.transition = "color 0.3s, opacity 0.3s";
+    titleContainer.appendChild(span);
+    return span;
   });
 
-  // Anime les lettres une par une
-  spans.forEach((span, index) => {
-    setTimeout(() => {
+  // Fonction pour "révéler" une lettre
+  function revealNextLetter() {
+    const progress = Math.min(
+      Math.floor((loadedImages / totalImages) * spans.length),
+      spans.length
+    );
+    for (let i = 0; i < progress; i++) {
+      spans[i].style.color = "#748CAB";
+      spans[i].style.opacity = 1;
+    }
+    // Cache le message si tout est chargé
+    if (loadedImages === totalImages) {
+      loadingMessage.style.display = "none";
+    }
+  }
+
+  // Écouteur sur chaque image
+  images.forEach(img => {
+    if (img.complete) {
+      loadedImages++;
+      revealNextLetter();
+    } else {
+      img.addEventListener("load", () => {
+        loadedImages++;
+        revealNextLetter();
+      });
+      img.addEventListener("error", () => {
+        loadedImages++;
+        revealNextLetter();
+      });
+    }
+  });
+
+  // Sécurité : s’il n’y a pas d’image, anime tout direct
+  if (images.length === 0) {
+    spans.forEach(span => {
       span.style.color = "#748CAB";
       span.style.opacity = 1;
-
-      // Dernière lettre → cacher le message
-      if (index === spans.length - 1) {
-        loadingMsg.style.display = "none";
-      }
-    }, index * 40);
-  });
+    });
+    loadingMessage.style.display = "none";
+  }
 });
+
 
 
 
